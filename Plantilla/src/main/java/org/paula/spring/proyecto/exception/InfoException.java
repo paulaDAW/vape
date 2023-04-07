@@ -1,9 +1,0 @@
-package org.paula.spring.proyecto.exception;
-
-public class InfoException extends Exception {
-	private static final long serialVersionUID = -6424354307051530713L;
-
-	public InfoException(String mensaje) {
-		super(mensaje);
-	}
-}

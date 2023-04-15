@@ -1,0 +1,33 @@
+<div class="container">
+	<h1>Crear entrada</h1>
+	<form action="/entrada/c" method="post">
+		Numero
+		<input type="text" name="numero" required="required" autofocus="autofocus" />
+		<br />
+		Horario
+		<select name="idHorario">
+			<th:block th:each=" horario : ${horarios} ">
+				<option th:value="${horario.id}" th:text="${horario.fecha}" />
+			</th:block>
+		</select>
+		<br />
+		
+		<fieldset>
+			<legend>
+				Tipos De Entrada
+			</legend>
+			<th:block th:each="tipo : ${tipos}">
+				<input th:id="|idTipos-${tipo.id}|" type="checkbox" name="idTipos" th:value="${tipo.id}"/>
+				<label th:for="|idTipos-${tipo.id}|" th:text="${tipo.nombre}"/>
+			</th:block>
+			
+		</fieldset>
+		<input type="submit"/>
+		
+	</form>
+	
+		
+	<form action="/entrada/r">
+		<input type="submit" value="Cancelar" />
+	</form>
+</div>

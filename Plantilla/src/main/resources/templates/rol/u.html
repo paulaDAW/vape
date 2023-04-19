@@ -1,0 +1,19 @@
+
+<div class="container">
+<h1>Actualizar rol</h1>
+
+<form action="/rol/u" method="post">
+Nombre
+<input type="text" name="nombre" required="required" th:value="${rol.nombre}"/>
+<br/>
+
+<input type="hidden" name="idRol" th:value="${rol.id}"/>
+
+<input type="submit"/>
+<br/>
+</form>
+
+<form action="/rol/r">
+<input type="submit" value="Cancelar"/>
+</form>
+</div>

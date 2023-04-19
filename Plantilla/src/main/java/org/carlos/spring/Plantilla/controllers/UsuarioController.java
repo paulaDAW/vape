@@ -9,6 +9,7 @@ import org.carlos.spring.Plantilla.dto.UsuarioDTO;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.PRG;
+import org.carlos.spring.Plantilla.services.RolService;
 import org.carlos.spring.Plantilla.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,9 +29,13 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private RolService rolService;
 
 	@GetMapping("c")
 	public String cGet(ModelMap m) {
+		m.put("roles", rolService.getRols());
 		m.put("view", "usuario/c");
 		return "_t/frame";
 	}

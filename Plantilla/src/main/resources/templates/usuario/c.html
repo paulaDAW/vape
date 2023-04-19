@@ -26,6 +26,14 @@
 		<input id="idPassword" type="password" name="password" required="required"/>
 		<br/>
 		
+		
+		<select name="idRol">
+			<th:block th:each=" rol : ${roles}">
+				<option th:value="${rol.id}" th:text="${rol.nombre}"></option>
+			</th:block>
+		</select>
+		<br>
+		
 		<input type="submit"/>
 		<br/>
 	</form>

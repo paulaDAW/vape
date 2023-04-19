@@ -16,7 +16,7 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd
 		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.dmanas.spring.pap2023</groupId>
+	<groupId>org.carlos.spring.Plantilla</groupId>
 	<artifactId>pap2023</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Pap2023</name>

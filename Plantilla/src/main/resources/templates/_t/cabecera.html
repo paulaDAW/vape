@@ -2,4 +2,10 @@
 	<a class="navbar-brand" href="/">
 		<img src="/img/home-alt.png" alt="INICIO" style="width:40px;">
 	</a>
+	
+	<a th:if="${session.usuario==null}" href="/login"> Login </a>
+	<a th:if="${session.usuario==null}" href="/register"> Registrarse </a>
+	
+	<span th:if="${session.usuario!=null}" th:text="|Hola    ${session.usuario.nombre}|"/>
+	<a th:if="${session.usuario!=null}" href="/logout"> Logout </a>
 </nav>

@@ -38,7 +38,9 @@ public class RolController {
 
 	@GetMapping("r")
 	public String rGet(ModelMap m) {
-		List<Rol> roles = rolService.getRols();
+
+		List<Rol> roles = rolService.getRoles();
+
 		m.put("roles", roles);
 		m.put("view", "rol/r");
 		return "_t/frame";

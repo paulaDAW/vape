@@ -54,7 +54,7 @@ public class Usuario {
 	
 	private String password;
 	
-	
+
 	@ManyToOne
 	private Rol rol;
 	

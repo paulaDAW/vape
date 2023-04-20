@@ -35,7 +35,7 @@ public class UsuarioController {
 
 	@GetMapping("c")
 	public String cGet(ModelMap m) {
-		m.put("roles", rolService.getRols());
+		m.put("roles", rolService.getRoles());
 		m.put("view", "usuario/c");
 		return "_t/frame";
 	}
@@ -126,7 +126,12 @@ public class UsuarioController {
 	@PostMapping("u")
 	public String uPost(
 			@RequestParam("idUsuario") Long idUsuario,
-			@RequestParam("loginName") String loginName
+			@RequestParam("loginName") String loginName,
+			@RequestParam("nombre") String nombre,
+			@RequestParam("apellidos") String apellidos,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			@RequestParam("fnac") LocalDate fnac,
+			@RequestParam("email") String email
 			/*
 			 * @RequestParam("nombre") String nombre,
 			@RequestParam("apellidos") String apellidos,
@@ -140,7 +145,7 @@ public class UsuarioController {
 		//System.out.println(usuario.getApellidos()+"--"+usuario.getId());
 		String retorno = "redirect:/usuario/r";
 		try {
-			usuarioService.updateUsuario(idUsuario, loginName /*, nombre, apellidos, loginName,email, fnac*/);
+			usuarioService.updateUsuario(idUsuario, nombre, apellidos, loginName, email, fnac);
 			/*
 			RestTemplate rt = new RestTemplate();
 			UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);

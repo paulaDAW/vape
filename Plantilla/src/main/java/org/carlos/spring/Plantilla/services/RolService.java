@@ -12,7 +12,9 @@ public class RolService {
 	@Autowired
 	private RolRepository rolRepository;
 
-	public List<Rol> getRols() {
+
+	public List<Rol> getRoles() {
+
 		return rolRepository.findAll();
 	}
 

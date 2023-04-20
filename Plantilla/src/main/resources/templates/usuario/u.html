@@ -2,11 +2,27 @@
 	<h1>Actualizar usuario</h1>
 
 	<form action="/usuario/u" method="post">
-		Login Name
-		<input type="text" name="loginName" required="required" th:value="${usuario.loginName}" autofocus="autofocus"/>
+		<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
+		
+		<label for="idLoginName">Login Name</label>
+		<input type="text" id="idLoginName" name="loginName" required="required" th:value="${usuario.loginName}" autofocus="autofocus"/>
 		<br />
 
-		<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
+		<label for="idNombre">Nombre</label>
+		<input id="idNombre" type="text" name="nombre" required="required" th:value="${usuario.nombre}" />
+		<br/>	
+			
+		<label for="idApellidos">Apellidos</label>
+		<input id="idApellidos" type="text" name="apellidos" required="required" th:value="${usuario.apellidos}"/>
+		<br/>
+		
+		<label for="idFnac">Fecha de nacimiento</label>
+		<input type="date" name="fnac" required="required" th:value="${usuario.fnac}">
+		<br/> 
+		
+		<label for="idEmail">Email</label>
+		<input id="idEmail" type="text" name="email" required="required" th:value="${usuario.email}"/>
+		<br/>
 
 		<input type="submit" />
 		<br />

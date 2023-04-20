@@ -1,6 +1,6 @@
 <div class="container">
-	<h1>Crear Usuario</h1>
-	<form action="/usuario/c" method="post">
+	<h1>Registro de usuario</h1>
+	<form action="/register" method="post">
 			
 		<label for="idNombre">Nombre</label>
 		<input id="idNombre" type="text" name="nombre" required="required" autofocus="autofocus"/>
@@ -26,25 +26,21 @@
 		<input id="idPassword" type="password" name="password" required="required"/>
 		<br/>
 		
-
 		<!--
 		Que solo lo vea el super admin
-
 		<select name="idRol">
 			<th:block th:each=" rol : ${roles}">
 				<option th:value="${rol.id}" th:text="${rol.nombre}"></option>
 			</th:block>
 		</select>
 		<br>
-
 		-->
-
 		
 		<input type="submit"/>
 		<br/>
 	</form>
 	
-	<form action="/usuario/r">
+	<form action="/">
 		<input type="submit" value="Cancelar"/>
 	</form>
 </div>

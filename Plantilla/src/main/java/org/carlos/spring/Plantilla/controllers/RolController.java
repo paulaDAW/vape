@@ -2,9 +2,11 @@ package org.carlos.spring.Plantilla.controllers;
 
 import java.util.List;
 import org.carlos.spring.Plantilla.entities.Rol;
+import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.PRG;
 import org.carlos.spring.Plantilla.services.RolService;
+import org.carlos.spring.Plantilla.helpers.H;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/rol")
@@ -21,7 +25,12 @@ public class RolController {
 	private RolService rolService;
 
 	@GetMapping("c")
-	public String cGet(ModelMap m) {
+	public String cGet(ModelMap m, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("No puedes acceder ("+ e.getMessage() + ")");
+		}
 		m.put("view", "rol/c");
 		return "_t/frame";
 	}

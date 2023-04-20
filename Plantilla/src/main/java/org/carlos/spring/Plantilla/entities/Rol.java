@@ -32,6 +32,11 @@ public class Rol {
 	
 	@OneToMany(mappedBy = "rol")
 	private Collection<Usuario> usuarios;
+	
+	public Rol(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
 
 }
 

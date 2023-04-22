@@ -1,11 +1,27 @@
-<nav class="container navbar navbar-expand-sm bg-dark navbar-dark rounded">
-	<a class="navbar-brand" href="/">
-		<img src="/img/home-alt.png" alt="INICIO" style="width:40px;">
-	</a>
+
+<nav class="m-0 navbar sticky-top container  bg-dark navbar-dark">
 	
-	<a th:if="${session.usuario==null}" href="/login"> Login </a>
-	<a th:if="${session.usuario==null}" href="/register"> Registrarse </a>
+	<div class="col justify-content-around">
+		<div class="row">
+			<div class="col-auto mr-auto ">	
+				<a class="navbar-brand btn p-0 ml-2 btn-sm" href="/" role="button">
+					<img src="/img/home-alt.png" alt="INICIO" style="width:45px;">
+				</a>
+			</div>
+			<div class="col"></div>
+			<div th:if="${session.usuario==null}" class="col-auto m-2">
+				<a class="btn btn-info btn-sm" href="/login" role="button"> Iniciar sesión </a>
+			</div>
+			<div th:if="${session.usuario==null}" class="col-auto m-2">
+				<a class="btn btn-primary btn-sm" href="/register" role="button"> Registrarse </a>
+			</div>
+			<div th:if="${session.usuario!=null}" class="col-auto m-2">
+				<span  th:text="|Hola    ${session.usuario.nombre}|"/>
+			</div>
+			<div th:if="${session.usuario!=null}" class="col-auto m-2">
+				<a class="btn btn-danger btn-sm" href="/logout" role="button"> Cerrar sesión </a>
+			</div>
+		</div>
+	</div>
 	
-	<span th:if="${session.usuario!=null}" th:text="|Hola    ${session.usuario.nombre}|"/>
-	<a th:if="${session.usuario!=null}" href="/logout"> Logout </a>
 </nav>

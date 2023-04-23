@@ -16,7 +16,8 @@
 				<a class="btn btn-primary btn-sm" href="/register" role="button"> Registrarse </a>
 			</div>
 			<div th:if="${session.usuario!=null}" class="col-auto m-2">
-				<span  th:text="|Hola    ${session.usuario.nombre}|"/>
+				<a class="btn btn-primary btn-sm" href="/perfil" th:text="${session.usuario.nombre}" role="button"></a>
+				<!--<span  th:text="|Hola    ${session.usuario.nombre}|"/>-->
 			</div>
 			<div th:if="${session.usuario!=null}" class="col-auto m-2">
 				<a class="btn btn-danger btn-sm" href="/logout" role="button"> Cerrar sesión </a>

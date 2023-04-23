@@ -1,46 +1,96 @@
 <div class="container">
-	<h1>Registro de usuario</h1>
-	<form action="/register" method="post">
-			
-		<label for="idNombre">Nombre</label>
-		<input id="idNombre" type="text" name="nombre" required="required" autofocus="autofocus"/>
-		<br/>	
-			
-		<label for="idApellidos">Apellidos</label>
-		<input id="idApellidos" type="text" name="apellidos" required="required"/>
-		<br/>
-		
-		<label for="idFnac">Fecha de nacimiento</label>
-		<input type="date" name="fnac" required="required">
-		<br/>
-		
-		<label for="idEmail">Email</label>
-		<input id="idEmail" type="text" name="email" required="required"/>
-		<br/>
-		
-		<label for="idLoginName">Login Name</label>
-		<input id="idLoginName" type="text" name="loginName" required="required"/>
-		<br/>
-		
-		<label for="idPassword">Contraseña</label>
-		<input id="idPassword" type="password" name="password" required="required"/>
-		<br/>
-		
+	<div class="card w-50 m-auto mt-2">
+  			<div class="card-header text-center">
+    			Registro de usuario
+  			</div>
+  			
+  			<div class="card-body">
+    			<h5 class="card-title text-center">Rellena los campos</h5>
+    			<form action="/register" method="post">
+    				<div class="row g-2 justify-content-center align-items-center">
+  						<div class="col-3">
+    						<label for="idNombre" class="col-form-label">Nombre</label>
+  						</div>
+  						<div class="col-1"></div>
+  						<div class="col-4">
+  							<input type="text" id="idNombre" class="form-control" name="nombre" required="required" autofocus="autofocus"/>
+  						</div>
+					</div>
+					<br>
+					<div class="row g-2 justify-content-center align-items-center">
+  						<div class="col-3">
+    						<label for="idApellidos" class="col-form-label">Apellidos</label>
+  						</div>
+  						<div class="col-1"></div>
+  						<div class="col-4">
+  							<input type="text" id="idApellidos" class="form-control" name="apellidos" required="required"/>
+  						</div>
+					</div>
+					<br>
+
+					<div class="row g-2 justify-content-center align-items-center">
+  						<div class="col-3">
+    						<label for="idEmail" class="col-form-label">Email</label>
+  						</div>
+  						<div class="col-1"></div>
+  						<div class="col-4">
+  							<input id="idEmail" type="text" name="email" class="form-control" required="required"/>
+  						</div>
+					</div>
+					<br>
+
+					<div class="row g-2 justify-content-center align-items-center">
+  						<div class="col-3">
+    						<label for="idFnac" class="col-form-label">Fecha de nacimiento</label>
+  						</div>
+  						<div class="col-1"></div>
+  						<div class="col-4">
+  							<input type="date" name="fnac" class="form-control" required="required">
+  						</div>
+					</div>
+					<br>
+
+    				<div class="row g-2 justify-content-center align-items-center">
+  						<div class="col-3">
+    						<label for="id-user2" class="col-form-label">Usuario</label>
+  						</div>
+  						<div class="col-1"></div>
+  						<div class="col-4">
+    						<input type="text" name="loginName" id="id-user2" class="form-control">
+  						</div>
+					</div>
+					<br>
+    				<div class="row g-2 justify-content-center align-items-center">
+  						<div class="col-3">
+    						<label for="id-pass2" class="col-form-label">Contraseña</label>
+  						</div>
+  						<div class="col-1"></div>
+  						<div class="col-4">
+    						<input type="password" name="password" id="id-pass2" class="form-control" aria-describedby="passwordHelpInline">
+  						</div>
+					</div>
+					<br>
+					<div class="text-center">
+						<button class="btn btn-primary btn-sm" onclick="submit()">Entrar</button>
+					</div>
+				</form>
+				
+  			</div>
+  			<div class="card-footer text-muted text-center">
+    			<form action="/">
+					<button class="btn btn-secondary btn-sm">Volver</button>
+				</form>
+  			</div>
+		</div>
+
+
 		<!--
-		Que solo lo vea el super admin
-		<select name="idRol">
-			<th:block th:each=" rol : ${roles}">
-				<option th:value="${rol.id}" th:text="${rol.nombre}"></option>
-			</th:block>
-		</select>
-		<br>
-		-->
-		
-		<input type="submit"/>
-		<br/>
-	</form>
-	
-	<form action="/">
-		<input type="submit" value="Cancelar"/>
-	</form>
+			Que solo lo vea el super admin
+			<select name="idRol">
+				<th:block th:each=" rol : ${roles}">
+					<option th:value="${rol.id}" th:text="${rol.nombre}"></option>
+				</th:block>
+			</select>
+			<br>
+			-->
 </div>

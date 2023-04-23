@@ -1,0 +1,26 @@
+<div class="container">
+	<div class="card text-center">
+  		<div class="card-header" >
+			  <span>Datos personales</span>
+ 	 	</div>
+  		<div class="card-body">
+			<form action="/usuario/u">
+				<input type="hidden" value="${usuario.id}"/>
+				<h5 class="card-title" th:text="${usuario.nombre}|"></h5>
+				<p class="card-text">
+					<label th:text="|Nombre: ${usuario.nombre}|"></label><br>
+					<label th:text="|Apellidos: ${usuario.apellidos}|"></label><br>
+					<label th:text="|Fecha de Nacimiento: ${usuario.fnac}|"></label><br>
+					<label th:text="|Email: ${usuario.email}|"></label><br>
+					<label th:text="|Usuario: ${usuario.loginName}|"></label><br>
+				</p>
+			  	<button onclick="submit()" class="btn btn-sm btn-primary">Cambiar datos</button>
+			</form>
+  		</div>
+  		<div class="card-footer text-muted">
+    		<form action="/">
+				<button class="btn btn-secondary btn-sm">Volver</button>
+			</form>
+  		</div>
+	</div>
+</div>

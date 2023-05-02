@@ -50,7 +50,7 @@ public class UsuarioService {
 			usuarioRepository.saveAndFlush(usuario);
 			//usuario = usuarioRepository.saveAndFlush(usuario);
 		} catch (Exception e) {
-			throw new Exception("El usuario " + usuario.getLoginName() + " ya existe");
+			throw new Exception("El email " + usuario.getEmail() + " ya se ha sido registrado");
 		}
 		return usuario;
 	}
@@ -60,18 +60,21 @@ public class UsuarioService {
 	}
 
 	//public void updateUsuario(UsuarioDTO usuarioDTO) throws Exception {
-	public void updateUsuario(Long idUsuario,String nombre, String apellidos,String loginName,String email,LocalDate fnac) throws Exception {
+	public void updateUsuario(
+			Long idUsuario, String nombre, String apellido1,
+			String apellido2, String tarjeta,
+			String email,LocalDate fnac) throws Exception {
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		//Usuario usuario = new Usuario(usuarioDTO);
-		usuario.setLoginName(loginName);
 		usuario.setNombre(nombre);
-		usuario.setApellidos(apellidos);
+		usuario.setApellido1(apellido1);
+		usuario.setApellido2(apellido2);
 		usuario.setEmail(email);
-		usuario.setFnac(fnac);
+		usuario.setTarjeta(tarjeta);//Encriptar		
 		try {
 			usuarioRepository.saveAndFlush(usuario);
 		} catch (Exception e) {
-			throw new Exception("El usuario " + usuario.getLoginName() + " ya existe");
+			throw new Exception("Ha ocurrido un error. Inténtelo de nuevo.");
 		}
 		
 	}
@@ -81,15 +84,15 @@ public class UsuarioService {
 		usuarioRepository.delete(usuario);
 	}
 
-	public Usuario autenticarUsuario(String loginname, String password) throws Exception {
+	public Usuario autenticarUsuario(String email, String password) throws Exception {
 		Usuario usuario = null;
 		try {
-			usuario = usuarioRepository.findByLoginName(loginname);
+			usuario = usuarioRepository.findByEmail(email);
 			if(usuario == null) {
-				throw new Exception();
+				throw new Exception("No esta registrado");
 			}
 		} catch (Exception e) {
-			throw new Exception("El usuario " + loginname.split("@")[0] + " no existe.");
+			throw new Exception("El usuario " + email.split("@")[0] + " no existe.");
 		}
 		if(!(new BCryptPasswordEncoder()).matches(password, usuario.getPassword())) {
 			throw new Exception("La contraseña no es correcta");

@@ -126,12 +126,14 @@ public class UsuarioController {
 	@PostMapping("u")
 	public String uPost(
 			@RequestParam("idUsuario") Long idUsuario,
-			@RequestParam("loginName") String loginName,
+			@RequestParam("apellido2") String apellido2,
 			@RequestParam("nombre") String nombre,
-			@RequestParam("apellidos") String apellidos,
+			@RequestParam("apellido1") String apellido1,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			@RequestParam("fnac") LocalDate fnac,
-			@RequestParam("email") String email
+			@RequestParam("email") String email,
+			@RequestParam("tarjeta") String tarjeta
+			
 			/*
 			 * @RequestParam("nombre") String nombre,
 			@RequestParam("apellidos") String apellidos,
@@ -145,7 +147,7 @@ public class UsuarioController {
 		//System.out.println(usuario.getApellidos()+"--"+usuario.getId());
 		String retorno = "redirect:/usuario/r";
 		try {
-			usuarioService.updateUsuario(idUsuario, nombre, apellidos, loginName, email, fnac);
+			usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, tarjeta, email, fnac);
 			/*
 			RestTemplate rt = new RestTemplate();
 			UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);

@@ -31,13 +31,13 @@ public class AuthController {
 	
 	@PostMapping("/login")
 	public String loginPost(
-			@RequestParam("loginname") String loginname,
+			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			HttpSession s
 			) throws DangerException {
 		try {
 			
-			s.setAttribute("usuario", usuarioService.autenticarUsuario(loginname,password));
+			s.setAttribute("usuario", usuarioService.autenticarUsuario(email,password));
 		} catch (Exception e) {
 			PRG.error(e.getMessage(),"/");
 		}

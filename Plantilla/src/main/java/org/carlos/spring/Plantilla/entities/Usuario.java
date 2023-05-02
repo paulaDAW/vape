@@ -1,16 +1,19 @@
+
 package org.carlos.spring.Plantilla.entities;
 
-import java.time.LocalDate;
 
-import org.carlos.spring.Plantilla.dto.UsuarioDTO;
+import java.util.Collection;
 
+//import org.carlos.spring.Plantilla.dto.UsuarioDTO;
+
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-//import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +27,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 public class Usuario {
-	
+	/*
 	public Usuario(UsuarioDTO usuarioDTO) {
 		this.nombre = usuarioDTO.getName();
 		this.apellidos = usuarioDTO.getSurname();
@@ -35,7 +38,8 @@ public class Usuario {
 		this.id = usuarioDTO.getId();
 		
 	}
-
+	*/
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -43,20 +47,24 @@ public class Usuario {
 	//@NonNull
 	private String nombre;
 	
-	private String apellidos;
+	private String apellido1;
 	
-	private LocalDate fnac;
-	
-	private String email;
+	private String apellido2;
 	
 	@Column(unique = true)
-	private String loginName;
+	private String email;
 	
 	private String password;
 	
-
+	@Nullable
+	private String tarjeta;
+	
 	@ManyToOne
 	private Rol rol;
+	
+	@OneToMany(mappedBy = "usuario")
+	private Collection<EntradaComprada> entradaComprada;
+	
 	
 
 }

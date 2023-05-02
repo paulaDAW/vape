@@ -31,8 +31,10 @@ public class Tipo {
 	@Column(unique = true)
 	@NonNull
 	private String nombre;
+	
+	private double precio;
 
-	@OneToMany(mappedBy = "tipo")
-	private Collection<Entrada> tipos;
+	//ManytoMany
+	
 }
 

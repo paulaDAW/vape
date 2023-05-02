@@ -30,11 +30,10 @@ public class HorarioController {
 
 	@PostMapping("c")
 	public String cPost(
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			@RequestParam("fecha") LocalDate fecha
+			@RequestParam("hora") String hora
 			) throws DangerException {
 		try {
-			horarioService.saveHorario(fecha);
+			horarioService.saveHorario(hora);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/horario/r");
 		}
@@ -59,18 +58,21 @@ public class HorarioController {
 		return "_t/frame";
 	}
 
+	
 	@PostMapping("u")
-	public String uPost(@RequestParam("idHorario") Long idHorario,
-			@RequestParam("fecha") LocalDate fecha
+	public String uPost(
+			@RequestParam("idHorario") Long idHorario,
+			@RequestParam("hora") String hora
 			) throws DangerException {
 		String retorno = "redirect:/horario/r";
 		try {
-			horarioService.updateHorario(idHorario,fecha);
+			horarioService.updateHorario(idHorario,hora);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/horario/r");
 		}
 		return retorno;
 	}
+	
 
 	@PostMapping("d")
 	public String d(@RequestParam("id") Long id) {

@@ -29,7 +29,7 @@ public class Horario {
 
 	@Column(unique = true)
 	@NonNull
-	private LocalDate fecha;
+	private String hora;
 
 	@OneToMany(mappedBy = "horario")
 	private Collection<Entrada> entradas;

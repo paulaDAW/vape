@@ -1,6 +1,7 @@
 package org.carlos.spring.Plantilla.entities;
 
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 
@@ -31,12 +32,16 @@ public class Entrada {
 	private Long id;
 
 	@Column(unique = true)
-	@NonNull
-	private int numero;
+	private int numeroMaximo;
+	
+	private int numeroVendido;
+	
 	@ManyToOne
 	private Horario horario;
 	
-	@ManyToOne
-	private Tipo tipo;
+	@OneToMany(mappedBy = "entrada")
+	private Collection<EntradaComprada> entradaComprada;
+	
+
 
 }

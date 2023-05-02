@@ -1,0 +1,22 @@
+<div class="container">
+	<h1>Crear tipo de entrada</h1>
+	<form action="/tipo/u" method="post">
+		<input type="hidden" name="idTipo" th:value="${tipo.id}"/>
+		
+		<label for="id-Nombre">Tipo de entrada(nombre)</label>
+		<input type="text" id="id-Nombre" th:value="${tipo.nombre}" name="nombre" required="required" autofocus="autofocus"/>
+		<br/>
+		
+		<label for="id-Precio">Precio asociado</label>
+		<input type="text" id="id-Precio" th:value="${tipo.precio}" name="precio" required="required" />
+		<br/>
+
+		<input type="submit" value="Actualizar tipo"/>
+		<br/>
+			
+	</form>
+
+	<form action="/tipo/r">
+		<input type="submit" value="Cancelar"/>
+	</form>
+</div>

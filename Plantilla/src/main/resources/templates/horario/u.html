@@ -1,0 +1,17 @@
+<div class="container">
+	<h1>Modificar horario</h1>
+	<form action="/horario/u" method="post">
+		<input type="hidden" name="idHorario" th:value="${horario.id}"/>
+		
+		<label for="id-Horario">Hora</label>
+		<input type="text" id="id-Horario" name="hora" th:value="${horario.hora}" required="required">
+		<br />
+
+		<input type="submit" value="Cambiar hora" />
+		<br />
+	</form>
+
+	<form action="/horario/r">
+		<input type="submit" value="Cancelar" />
+	</form>
+</div>

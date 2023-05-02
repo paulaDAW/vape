@@ -1,5 +1,6 @@
 package org.carlos.spring.Plantilla.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,8 +30,8 @@ public class EntradaService {
 		return entradaRepository.findAll();
 	}
 
-	public void saveEntrada(int numero, Long idHorario,Long idTipos) throws Exception {
-		Entrada entrada = Entrada.builder().numero(numero).build();
+	public void saveEntrada(int numeroMax, int numeroVen, Long idHorario) throws Exception {
+		Entrada entrada = Entrada.builder().numeroMaximo(numeroMax).numeroVendido(numeroVen).build();
 		
 		Horario horario=horarioRepository.getById(idHorario);
 		
@@ -38,14 +39,10 @@ public class EntradaService {
 		
 		horario.getEntradas().add(entrada);
 		
-		Tipo tipo=tipoRepository.getById(idTipos);
-		
-		entrada.setTipo(tipo);
-		
 		try {
 			entradaRepository.saveAndFlush(entrada);
 		} catch (Exception e) {
-			throw new Exception("El/la entrada con nº de referencia " + numero + " ya existe");
+			throw new Exception("La entrada ya existe");
 		}
 	}
 
@@ -53,25 +50,22 @@ public class EntradaService {
 		return entradaRepository.findById(id).get();
 	}
 
-	public void updateEntrada(Long id, int numero,Long idHorario,Long idTipos) throws Exception {
+	public void updateEntrada(Long id, int numeroMax, int numeroVen, Long idHorario) 
+					throws Exception {
 		Entrada entrada = entradaRepository.findById(id).get();
-		entrada.setNumero(numero);
+		entrada.setNumeroMaximo(numeroMax);
+		entrada.setNumeroVendido(numeroVen);
+
 		
 		if ( entrada.getHorario()== null || idHorario != entrada.getHorario().getId() )  {
 			Horario nuevoHorario= horarioRepository.getById(idHorario);
 			entrada.setHorario(nuevoHorario);
 		}
 		
-		if ( entrada.getTipo()== null || idTipos != entrada.getTipo().getId() )  {
-			Tipo nuevoTipo= tipoRepository.getById(idTipos);
-			entrada.setTipo(nuevoTipo);
-		}
-		
-		
 		try {
 			entradaRepository.saveAndFlush(entrada);
 		} catch (Exception e) {
-			throw new Exception("El/la entrada con nº de referencia " + numero + " ya existe");
+			throw new Exception("La entrada ya existe");
 		}
 	}
 

@@ -7,16 +7,15 @@
 
 
 	<form action="/">
-
 		<input type="submit" value="Menú principal" />
 	</form>
 
 	<table class="table table-striped table-hover">
 		<tr>
 			<th>Acción</th>
-			<th>Numero</th>
+			<th>Nº Máximo</th>
+			<th>Nº Vendidas</th>
 			<th>Horario</th>
-			<th>Tipo de entrada</th>
 		</tr>
 
 		<tr th:each=" entrada : ${ entradas }">
@@ -42,9 +41,9 @@
 				</div>
 			</td>
 
-			<td th:text="${ entrada.numero }" />
-			<td th:text="${ entrada.horario?.fecha }" />
-			<td th:text="${ entrada.tipo?.nombre }" />
+			<td th:text="${ entrada.numeroMaximo }" />
+			<td th:text="${ entrada.numeroVendido }" />
+			<td th:text="${ entrada.horario.hora }" />
 		
 		</tr>
 	</table>

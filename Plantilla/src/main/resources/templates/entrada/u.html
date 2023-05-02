@@ -1,0 +1,31 @@
+<div class="container">
+	<h1>Actualizar entrada</h1>
+	<form action="/entrada/u" method="post">
+		<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>
+		
+		<label id="id-numeroMax">Número máximo de entradas a la venta</label>
+		<input type="text" id="id-numeroMax" th:value="${entrada.numeroMaximo}" name="numeroMax" required="required" autofocus="autofocus" />
+		<br />
+		
+		<label id="id-numeroVen">Número entradas vendidas</label>
+		<input type="text" id="id-numeroVen" th:value="${entrada.numeroVendido}" name="numeroVen" required="required" />
+		<br />
+		
+		<label id="id-horario">Horario</label>
+		
+		<select id="id-horario" name="idHorario	">
+			<th:block th:each=" horario : ${horarios} ">
+				<option th:value="${horario.id}" th:text="${horario.hora}" />
+			</th:block>
+		</select>
+		<br />
+		
+		<input type="submit"/ value="Actualizar entrada">
+		
+	</form>
+	
+		
+	<form action="/entrada/r">
+		<input type="submit" value="Cancelar" />
+	</form>
+</div>

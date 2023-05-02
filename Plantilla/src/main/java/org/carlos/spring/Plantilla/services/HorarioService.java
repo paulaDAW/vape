@@ -17,12 +17,13 @@ public class HorarioService {
 		return horarioRepository.findAll();
 	}
 
-	public void saveHorario(LocalDate fecha) throws Exception {
-		Horario horario = Horario.builder().fecha(fecha).build();
+	public void saveHorario(String hora) throws Exception {
+		Horario horario = Horario.builder().hora(hora).build();
 		try {
 			horarioRepository.saveAndFlush(horario);
 		} catch (Exception e) {
-			throw new Exception("El/la horario " + fecha + " ya existe");
+			throw new Exception("La hora " + hora + " ya ha sido registrada."
+					+ "\nInténtelo con otra");
 		}
 	}
 
@@ -30,13 +31,13 @@ public class HorarioService {
 		return horarioRepository.findById(id).get();
 	}
 
-	public void updateHorario(Long id, LocalDate fecha) throws Exception {
+	public void updateHorario(Long id, String hora) throws Exception {
 		Horario horario = horarioRepository.findById(id).get();
-		horario.setId(id);
+		horario.setHora(hora);
 		try {
 			horarioRepository.saveAndFlush(horario);
 		} catch (Exception e) {
-			throw new Exception("El/la horario " + fecha + " ya existe");
+			throw new Exception("Esta hora ( " + hora + " ) ya ha sido registrada");
 		}
 	}
 

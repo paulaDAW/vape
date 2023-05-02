@@ -53,9 +53,9 @@
   			<div class="col">
   				<h5 class="card-title">Tarifas</h5>
     			<p class="card-text">
-    				<span>Tarifa 1: 10€</span><br>
-    				<span>Tarifa 2: 15€</span><br>
-    				<span>Tarifa 3: 20€</span>
+					<th:block th:each=" tipo : ${tipos}">
+						<span th:text="|${tipo.nombre} : ${tipo.precio}|"/><br/>
+					</th:block>
     			</p>
   			</div>
   		</div>

@@ -16,12 +16,12 @@ public class TipoService {
 		return tipoRepository.findAll();
 	}
 
-	public void saveTipo(String nombre) throws Exception {
-		Tipo tipo = Tipo.builder().nombre(nombre).build();
+	public void saveTipo(String nombre, double precio) throws Exception {
+		Tipo tipo = Tipo.builder().nombre(nombre).precio(precio).build();
 		try {
 			tipoRepository.saveAndFlush(tipo);
 		} catch (Exception e) {
-			throw new Exception("El/la tipo " + nombre + " ya existe");
+			throw new Exception("El tipo de entrada ( " + nombre + " ) ya existe");
 		}
 	}
 
@@ -29,13 +29,14 @@ public class TipoService {
 		return tipoRepository.findById(id).get();
 	}
 
-	public void updateTipo(Long id, String nombre) throws Exception {
+	public void updateTipo(Long id, String nombre, double precio) throws Exception {
 		Tipo tipo = tipoRepository.findById(id).get();
 		tipo.setNombre(nombre);
+		tipo.setPrecio(precio);
 		try {
 			tipoRepository.saveAndFlush(tipo);
 		} catch (Exception e) {
-			throw new Exception("El/la tipo " + nombre + " ya existe");
+			throw new Exception("Error al intentar actualizar.");
 		}
 	}
 

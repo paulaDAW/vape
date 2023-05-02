@@ -27,9 +27,12 @@ public class TipoController {
 	}
 
 	@PostMapping("c")
-	public String cPost(@RequestParam("nombre") String nombre) throws DangerException {
+	public String cPost(
+			@RequestParam("nombre") String nombre,
+			@RequestParam("precio") double precio
+			) throws DangerException {
 		try {
-			tipoService.saveTipo(nombre);
+			tipoService.saveTipo(nombre,precio);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/tipo/r");
 		}
@@ -55,11 +58,13 @@ public class TipoController {
 	}
 
 	@PostMapping("u")
-	public String uPost(@RequestParam("idTipo") Long idTipo,
+	public String uPost(
+			@RequestParam("idTipo") Long idTipo,
+			@RequestParam("precio") double precio,
 			@RequestParam("nombre") String nombre) throws DangerException {
 		String retorno = "redirect:/tipo/r";
 		try {
-			tipoService.updateTipo(idTipo, nombre);
+			tipoService.updateTipo(idTipo, nombre, precio);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/tipo/r");
 		}

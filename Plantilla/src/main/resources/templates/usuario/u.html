@@ -4,26 +4,28 @@
 	<form action="/usuario/u" method="post">
 		<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
 		
-		<label for="idLoginName">Login Name</label>
-		<input type="text" id="idLoginName" name="loginName" required="required" th:value="${usuario.loginName}" autofocus="autofocus"/>
-		<br />
-
 		<label for="idNombre">Nombre</label>
-		<input id="idNombre" type="text" name="nombre" required="required" th:value="${usuario.nombre}" />
+		<input id="idNombre" type="text" name="nombre" th:value="${usuario.nombre}" required="required" autofocus="autofocus"/>
 		<br/>	
 			
-		<label for="idApellidos">Apellidos</label>
-		<input id="idApellidos" type="text" name="apellidos" required="required" th:value="${usuario.apellidos}"/>
+		<label for="idApellido1">Primer apellido</label>
+		<input id="idApellido1" type="text" th:value="${usuario.apellido1}" name="idApellido1" required="required"/>
 		<br/>
 		
-		<label for="idFnac">Fecha de nacimiento</label>
-		<input type="date" name="fnac" required="required" th:value="${usuario.fnac}">
-		<br/> 
-		
+		<label for="idApellido2">Segundo apellido</label>
+		<input id="idApellido2" type="text" th:value="${usuario?.apellido2}" name="idApellido2" required="required"/>
+		<br/>
+			
 		<label for="idEmail">Email</label>
-		<input id="idEmail" type="text" name="email" required="required" th:value="${usuario.email}"/>
+		<input id="idEmail" type="text" th:value="${usuario.email}" name="email" required="required"/>
 		<br/>
-
+		
+		<label for="idTarjeta">Mostrar solo últimos digitos(Que no se ve en el cogido tampoco)</label>
+		<input id="idTarjeta" th:value="${usuario.tarjeta}" type="text" name="tarjeta" required="required"/>
+		<br/>
+		
+		<!--Opción para cambiar de contraseña-->
+		
 		<input type="submit" />
 		<br />
 	</form>

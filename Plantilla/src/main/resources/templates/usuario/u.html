@@ -2,6 +2,14 @@
 	<h1>Actualizar usuario</h1>
 
 	<form action="/usuario/u" method="post">
+<<<<<<< HEAD
+		Login Name
+		<input type="text" name="loginName" required="required" th:value="${usuario.loginName}" autofocus="autofocus"/>
+		<br />
+
+		<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
+
+=======
 		<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
 		
 		<label for="idNombre">Nombre</label>
@@ -26,6 +34,7 @@
 		
 		<!--Opción para cambiar de contraseña-->
 		
+>>>>>>> d98ccf069ef4ab2c38a6c2533c064fc67eccc35b
 		<input type="submit" />
 		<br />
 	</form>

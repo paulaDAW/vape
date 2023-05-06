@@ -15,9 +15,16 @@
 		<tr>
 			<th>Acción</th>
 			<th>Nombre</th>
+<<<<<<< HEAD
+			<th>Apellidos</th>
+			<th>Fecha de Nacimiento</th>
+			<th>Email</th>
+			<th>Login Name</th>
+=======
 			<th>Primer apellido</th>
 			<th>Segundo apellido</th>
 			<th>Email</th>
+>>>>>>> d98ccf069ef4ab2c38a6c2533c064fc67eccc35b
 		</tr>
 
 		<tr th:each=" usuario : ${ usuarios }">
@@ -44,9 +51,16 @@
 			</td>
 
 			<td th:text="${ usuario.nombre }" />
+<<<<<<< HEAD
+			<td th:text="${ usuario.apellidos }" />
+			<td th:text="|${ usuario.fnac?.getDayOfMonth() } de ${ usuario.fnac?.getMonth() } de ${ usuario.fnac?.getYear() }|">
+			<td th:text="${ usuario.email }" />
+			<td th:text="${ usuario.loginName }" />
+=======
 			<td th:text="${ usuario.apellido1 }" />
 			<td th:text="${ usuario.apellido2 }" />
 			<td th:text="${ usuario.email }" />
+>>>>>>> d98ccf069ef4ab2c38a6c2533c064fc67eccc35b
 
 		</tr>
 	</table>

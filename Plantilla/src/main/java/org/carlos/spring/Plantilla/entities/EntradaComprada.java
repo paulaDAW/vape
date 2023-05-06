@@ -38,6 +38,13 @@ public class EntradaComprada {
 	@ManyToOne
 	private Entrada entrada;
 	
+	@ManyToOne
+	private Tipo tipo;
+	
+	private int cantidad;
+	
+	private LocalDate fecha;
+	
 	//ManyToMany
 
 }

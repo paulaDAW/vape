@@ -27,7 +27,7 @@ public class PerfilController {
 	@GetMapping("/perfil")
 	public String r(ModelMap m, HttpSession s) {
 	
-		m.put("usuario", s.getAttribute("usuario"));
+		m.put("usuario", (Usuario)(s.getAttribute("usuario")));
 		m.put("view", "perfil/r");
 		return "_t/frame";
 	}

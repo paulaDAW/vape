@@ -61,9 +61,12 @@ public class UsuarioService {
 
 	//public void updateUsuario(UsuarioDTO usuarioDTO) throws Exception {
 	public void updateUsuario(
-			Long idUsuario, String nombre, String apellido1,
-			String apellido2, String tarjeta,
-			String email,LocalDate fnac) throws Exception {
+			Long idUsuario,
+			String nombre,
+			String apellido1,
+			String apellido2,
+			String tarjeta,
+			String email) throws Exception {
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		//Usuario usuario = new Usuario(usuarioDTO);
 		usuario.setNombre(nombre);

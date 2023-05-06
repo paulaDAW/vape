@@ -35,7 +35,6 @@ public class EntradaController {
 	@GetMapping("c")
 	public String cGet(ModelMap m) {
 		m.put("horarios", horarioService.getHorarios());
-		m.put("tipos", tipoService.getTipos());
 		m.put("view", "entrada/c");
 		return "_t/frame";
 	}

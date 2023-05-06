@@ -35,6 +35,8 @@ public class Tipo {
 	private double precio;
 
 	//ManytoMany
+	@OneToMany(mappedBy = "tipo")
+	private Collection<EntradaComprada> entradasCompradas;
 	
 }
 

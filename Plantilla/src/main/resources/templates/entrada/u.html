@@ -11,13 +11,9 @@
 		<input type="text" id="id-numeroVen" th:value="${entrada.numeroVendido}" name="numeroVen" required="required" />
 		<br />
 		
-		<label id="id-horario">Horario</label>
+		<label id="id-fecha">fecha</label>
+		<input type="date" id="id-fecha" name="fecha" th:value="${entrada.fecha}"/>
 		
-		<select id="id-horario" name="idHorario	">
-			<th:block th:each=" horario : ${horarios} ">
-				<option th:value="${horario.id}" th:text="${horario.hora}" />
-			</th:block>
-		</select>
 		<br />
 		
 		<input type="submit"/ value="Actualizar entrada">

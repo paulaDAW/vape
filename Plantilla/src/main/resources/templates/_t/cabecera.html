@@ -8,13 +8,21 @@
 					&nbsp<img src="/img/landmark-solid.svg" alt="INICIO" style="width:40px;">&nbsp Inicio
 				</a>
 			</div>
+			
 			<div class="col"></div>
+			
 			<div th:if="${session.usuario==null}" class="col-auto m-2">
 				<a class="btn btn-info btn-sm" href="/login" role="button"> Iniciar sesión </a>
 			</div>
+			
 			<div th:if="${session.usuario==null}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/register" role="button"> Registrarse </a>
 			</div>
+			
+			<div th:if="${session.usuario!=null}" class="col-auto m-2">
+				<a class="btn btn-primary btn-sm" href="/misentradas" th:text="|Mis entradas|" role="button"></a>
+			</div>
+			
 			<div th:if="${session.usuario!=null}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/perfil" th:text="${session.usuario.nombre}" role="button"></a>
 				<!--<span  th:text="|Hola    ${session.usuario.nombre}|"/>-->

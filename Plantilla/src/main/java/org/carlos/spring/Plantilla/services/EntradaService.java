@@ -1,15 +1,9 @@
 package org.carlos.spring.Plantilla.services;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.carlos.spring.Plantilla.entities.Entrada;
-import org.carlos.spring.Plantilla.entities.Horario;
-import org.carlos.spring.Plantilla.entities.Tipo;
 import org.carlos.spring.Plantilla.repositories.EntradaRepository;
-import org.carlos.spring.Plantilla.repositories.HorarioRepository;
-import org.carlos.spring.Plantilla.repositories.TipoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,25 +13,17 @@ public class EntradaService {
 	@Autowired
 	private EntradaRepository entradaRepository;
 	
-	@Autowired
-	private TipoRepository tipoRepository;
-	
-	@Autowired
-	private HorarioRepository horarioRepository;
-	
 	
 	public List<Entrada> getEntradas() {
 		return entradaRepository.findAll();
 	}
 
-	public void saveEntrada(int numeroMax, int numeroVen, Long idHorario) throws Exception {
-		Entrada entrada = Entrada.builder().numeroMaximo(numeroMax).numeroVendido(numeroVen).build();
-		
-		Horario horario=horarioRepository.getById(idHorario);
-		
-		entrada.setHorario(horario);
-		
-		horario.getEntradas().add(entrada);
+	public void saveEntrada(int numeroMax, int numeroVen, LocalDate fecha) throws Exception {
+		Entrada entrada = Entrada.builder()
+				.numeroMaximo(numeroMax)
+				.numeroVendido(numeroVen)
+				.fecha(fecha)
+				.build();
 		
 		try {
 			entradaRepository.saveAndFlush(entrada);
@@ -50,17 +36,12 @@ public class EntradaService {
 		return entradaRepository.findById(id).get();
 	}
 
-	public void updateEntrada(Long id, int numeroMax, int numeroVen, Long idHorario) 
+	public void updateEntrada(Long id, int numeroMax, int numeroVen, LocalDate fecha) 
 					throws Exception {
 		Entrada entrada = entradaRepository.findById(id).get();
 		entrada.setNumeroMaximo(numeroMax);
 		entrada.setNumeroVendido(numeroVen);
-
-		
-		if ( entrada.getHorario()== null || idHorario != entrada.getHorario().getId() )  {
-			Horario nuevoHorario= horarioRepository.getById(idHorario);
-			entrada.setHorario(nuevoHorario);
-		}
+		entrada.setFecha(fecha);
 		
 		try {
 			entradaRepository.saveAndFlush(entrada);
@@ -72,5 +53,9 @@ public class EntradaService {
 	public void deleteEntrada(Long id) {
 		Entrada entrada = entradaRepository.findById(id).get();
 		entradaRepository.delete(entrada);
+	}
+
+	public Entrada getEntradaByFecha(LocalDate fecha) {
+		return entradaRepository.findByFecha(fecha);
 	}
 }

@@ -15,7 +15,7 @@
 			<th>Acción</th>
 			<th>Nº Máximo</th>
 			<th>Nº Vendidas</th>
-			<th>Horario</th>
+			<th>Fecha</th>
 		</tr>
 
 		<tr th:each=" entrada : ${ entradas }">
@@ -43,7 +43,7 @@
 
 			<td th:text="${ entrada.numeroMaximo }" />
 			<td th:text="${ entrada.numeroVendido }" />
-			<td th:text="${ entrada.horario.hora }" />
+			<td th:text="${ entrada.fecha }" />
 		
 		</tr>
 	</table>

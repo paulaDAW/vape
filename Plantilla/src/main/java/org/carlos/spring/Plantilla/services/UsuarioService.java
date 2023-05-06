@@ -1,11 +1,13 @@
 package org.carlos.spring.Plantilla.services;
 
+
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.carlos.spring.Plantilla.dto.UsuarioDTO;
+
+import java.util.List;
 import org.carlos.spring.Plantilla.entities.Rol;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.repositories.RolRepository;
@@ -33,11 +35,16 @@ public class UsuarioService {
 	@Autowired
 	private RolRepository rolRepository;
 	
+
+	@Autowired 
+	private RolService rolService;
+
 	@Autowired
 	JavaMailSender javaMailSender;
 	
 	@Value("${spring.mail.username}")
 	private String email;
+
 	
 	public List<Usuario> getUsuarios() {
 		return usuarioRepository.findAll();
@@ -59,8 +66,25 @@ public class UsuarioService {
 		//Usuario usuario = new Usuario(usuarioDTO);
 		usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
 		
+		
 		Rol rol = rolRepository.findByNombre("Cliente");
 		usuario.setRol(rol);
+		/*
+		 if(usuario.getRol() == null || rol.getId() != usuario.getRol().getId() ) {
+			Rol nuevoRol = rolService.saveRol("Cliente");
+			usuario.setRol(nuevoRol);
+		}
+		*/
+		/*
+		//SObra
+		if ( entrada.getHorario()== null || idHorario != entrada.getHorario().getId() )  {
+			Horario nuevoHorario= horarioRepository.getById(idHorario);
+			entrada.setHorario(nuevoHorario);
+		}
+		*/
+		
+		
+		
 		try {
 			usuarioRepository.saveAndFlush(usuario);
 			//usuario = usuarioRepository.saveAndFlush(usuario);

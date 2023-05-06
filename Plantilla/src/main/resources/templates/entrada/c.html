@@ -6,16 +6,11 @@
 		<input type="text" id="id-numeroMax" name="numeroMax" required="required" autofocus="autofocus" />
 		<br />
 		
-		<label id="id-horario">Horario</label>
+		<!--Poner un calendario? Mirar para automatizar para dos meses mínimo, con seeder?-->
 		
-		<span th:if="${horarios == null}" th:text="|Crea un horario primero(Poner boton a create horaro)|" >
-			
-		</span>
-		<select id="id-horario" name="idHorario">
-			<th:block th:each=" horario : ${horarios} ">
-				<option th:value="${horario.id}" th:text="${horario.hora}" />
-			</th:block>
-		</select>
+		<label for="id-fecha">Fecha de la entrada</label>
+		<input type="date" id="id-fecha" name="fecha" required="required" />
+		
 		<br />
 		
 		<input type="submit"/ value="Añadir entrada">

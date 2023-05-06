@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class EntradaCompradaService {
 
 	@Autowired
-	private EntradaCompradaRepository EntradaCompradaRepository;
+	private EntradaCompradaRepository entradaCompradaRepository;
 	
 	@Autowired
 	private EntradaService entradaService;
@@ -23,45 +23,51 @@ public class EntradaCompradaService {
 	@Autowired
 	private TipoService tipoService;
 	
-	@Autowired
-	private UsuarioService usuarioService;
+	//@Autowired
+	//private UsuarioService usuarioService;
 
 	public List<EntradaComprada> getEntradaCompradas() {
-		return EntradaCompradaRepository.findAll();
+		return entradaCompradaRepository.findAll();
 	}
 
-	public void saveEntradaComprada(Usuario usuario, Long idTipo,Long idEntrada,int cantidad,LocalDate fecha, LocalDate fechaCompra) throws Exception {
+	public void saveEntradaComprada(Usuario usuario, Long idTipo,Long idEntrada,int cantidad, LocalDate fechaCompra) throws Exception {
 		EntradaComprada entradaComprada = EntradaComprada.builder().cantidad(cantidad)
-				.fecha(fecha).fechaCompra(fechaCompra).build();
+				.fechaCompra(fechaCompra).build();
 		Tipo tipo = tipoService.getTipoById(idTipo);
 		Entrada entrada = entradaService.getEntradaById(idEntrada);
 		entradaComprada.setEntrada(entrada);
 		entradaComprada.setTipo(tipo);
 		entradaComprada.setUsuario(usuario);
+		entrada.setNumeroVendido((entrada.getNumeroVendido()+cantidad));
 		try {
-			EntradaCompradaRepository.saveAndFlush(entradaComprada);
+			entradaCompradaRepository.saveAndFlush(entradaComprada);
 		} catch (Exception e) {
 			throw new Exception("Error al comprar la entrada");
 		}
 	}
 
 	public EntradaComprada getEntradaCompradaById(Long id) {
-		return EntradaCompradaRepository.findById(id).get();
+		return entradaCompradaRepository.findById(id).get();
 	}
 
 	public void updateEntradaComprada(Long id, String nombre) throws Exception {
-		EntradaComprada entradaComprada = EntradaCompradaRepository.findById(id).get();
+		EntradaComprada entradaComprada = entradaCompradaRepository.findById(id).get();
 		
 		try {
-			EntradaCompradaRepository.saveAndFlush(entradaComprada);
+			entradaCompradaRepository.saveAndFlush(entradaComprada);
 		} catch (Exception e) {
 			throw new Exception("El/la EntradaComprada " + nombre + " ya existe");
 		}
 	}
 
 	public void deleteEntradaComprada(Long id) {
-		EntradaComprada EntradaComprada = EntradaCompradaRepository.findById(id).get();
-		EntradaCompradaRepository.delete(EntradaComprada);
+		EntradaComprada EntradaComprada = entradaCompradaRepository.findById(id).get();
+		entradaCompradaRepository.delete(EntradaComprada);
+	}
+
+	public List<EntradaComprada> getMisEntradas(Usuario usuario) {
+
+		return entradaCompradaRepository.findByUsuario(usuario);
 	}
 }
 

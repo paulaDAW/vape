@@ -3,17 +3,17 @@ package org.carlos.spring.Plantilla.controllers;
 
 import java.time.LocalDate;
 
+import org.carlos.spring.Plantilla.entities.Entrada;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.PRG;
 import org.carlos.spring.Plantilla.services.EntradaCompradaService;
 
-//import org.carlos.spring.Plantilla.entities.entityMayuscula;
 
 import org.carlos.spring.Plantilla.services.EntradaService;
 import org.carlos.spring.Plantilla.services.TipoService;
+import org.carlos.spring.Plantilla.helpers.H;
 import org.carlos.spring.Plantilla.services.UsuarioService;
-//import org.carlos.spring.Plantilla.services.entityMayusculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -54,16 +54,27 @@ public class CompraController {
 	public String rPost(
 			@RequestParam("idTipo") Long idTipo,
 			@RequestParam("cantidad") int cantidad,
-			@RequestParam("idEntrada") Long idEntrada,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			@RequestParam("fecha") LocalDate fecha,
 			HttpSession s
 			) throws DangerException {
 		String retorno="redirect:/comprar/confirmacion";
 		LocalDate fechaCompra = LocalDate.now();
+		Entrada entrada = entradaService.getEntradaByFecha(fecha);
 		try {
-			entradaCompradaService.saveEntradaComprada((Usuario) (s.getAttribute("usuario")) ,idTipo, idEntrada, cantidad, fecha,fechaCompra);
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
+		try {
+
+			if((entrada.getNumeroVendido()+cantidad) > entrada.getNumeroMaximo()) {
+				throw new Exception("Supera el límite de entradas disponibles");
+			}
+			entradaCompradaService.saveEntradaComprada((Usuario)(s.getAttribute("usuario")) ,idTipo, entrada.getId(), cantidad, fechaCompra);
+
 			//usuarioService.confirmacionCompra(email);
+
 		}catch(Exception e){
 			PRG.error(e.getMessage(),"/");
 		}

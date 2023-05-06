@@ -1,6 +1,6 @@
 package org.carlos.spring.Plantilla.controllers;
 
-import org.carlos.spring.Plantilla.services.HorarioService;
+
 import org.carlos.spring.Plantilla.services.TipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(
 			ModelMap m, HttpSession s
-			)
-			 
+			)	 
 	{
 		m.put("tipos",tipoService.getTipos());
 		m.put("view", "home/home");

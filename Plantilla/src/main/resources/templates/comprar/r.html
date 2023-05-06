@@ -28,17 +28,11 @@
 				<!--Cada entrada debe de tener N fechas, y comprobar sobre la selecionada-->
 				<!--Mostrar solo las fechas que no tengan todas vendidas-->
 				<label>Fecha</label>
-				<input type="date" name="fecha"/>
+				<input type="date" name="fecha" />
 				<br/>
 				
-				<!--La entrada viene definida en funcion de la hora-->
-				<label>Hora</label>
-				<select name="idEntrada">
-					<th:block th:each=" entrada : ${entradas}">
-						<option th:value="${entrada.id}" th:text="${entrada.horario.hora}"/>
-					</th:block>
-				</select>
-				<br/>
+				<!--La entrada viene definida en funcion de la fecha-->
+				
 				
 				<input type="submit" value="Comprar"/>
 				

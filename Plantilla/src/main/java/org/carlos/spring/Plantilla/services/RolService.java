@@ -18,13 +18,14 @@ public class RolService {
 		return rolRepository.findAll();
 	}
 
-	public void saveRol(String nombre) throws Exception {
+	public Rol saveRol(String nombre) throws Exception {
 		Rol rol = Rol.builder().nombre(nombre).build();
 		try {
 			rolRepository.saveAndFlush(rol);
 		} catch (Exception e) {
 			throw new Exception("El/la rol " + nombre + " ya existe");
 		}
+		return rol;
 	}
 
 	public Rol getRolById(Long id) {

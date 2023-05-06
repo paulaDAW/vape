@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.carlos.spring.Plantilla.dto.UsuarioDTO;
+import org.carlos.spring.Plantilla.entities.EntradaComprada;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
+import org.carlos.spring.Plantilla.helpers.H;
 import org.carlos.spring.Plantilla.helpers.PRG;
+import org.carlos.spring.Plantilla.services.EntradaCompradaService;
 import org.carlos.spring.Plantilla.services.RolService;
 import org.carlos.spring.Plantilla.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -32,6 +37,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private RolService rolService;
+	
+	@Autowired
+	private EntradaCompradaService entradaCompradaService;
 
 	@GetMapping("c")
 	public String cGet(ModelMap m) {

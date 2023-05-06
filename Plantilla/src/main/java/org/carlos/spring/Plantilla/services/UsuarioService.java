@@ -1,5 +1,6 @@
 package org.carlos.spring.Plantilla.services;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +11,19 @@ import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.repositories.RolRepository;
 import org.carlos.spring.Plantilla.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.mail.internet.MimeMessage;
+
+@Transactional
 @Service
 public class UsuarioService {
 
@@ -23,6 +32,12 @@ public class UsuarioService {
 
 	@Autowired
 	private RolRepository rolRepository;
+	
+	@Autowired
+	JavaMailSender javaMailSender;
+	
+	@Value("${spring.mail.username}")
+	private String email;
 	
 	public List<Usuario> getUsuarios() {
 		return usuarioRepository.findAll();
@@ -101,5 +116,20 @@ public class UsuarioService {
 			throw new Exception("La contraseña no es correcta");
 		}
 		return usuario;
+	}
+	
+	public void confirmacionCompra(String emailTo) throws Exception {
+		MimeMessage mensaje = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensaje,true);
+			
+			helper.setFrom(email);
+			helper.setTo(emailTo);
+			helper.setSubject("Confirmación de compra de entrada/s");
+			helper.setText("Su compra ha sido realizada con éxito.");
+			javaMailSender.send(mensaje);
+		} catch (Exception e) {
+			throw new Exception("Ha ocurrido un error");
+		}
 	}
 }

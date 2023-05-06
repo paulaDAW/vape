@@ -1,0 +1,65 @@
+<h4 class="card-subtitle p-2 text-white  text-center">
+	Entradas
+</h4>
+
+
+<!--Entradas-->
+<div class="container mt-2">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title text-center">
+				Entradas
+			</div>
+		</div>
+		<div class="card-body">
+			<form action="/comprar/r" method="post">
+				<label>Numero de entradas</label>
+				<input type="number" name="cantidad" />
+				<br/>
+				
+				<label>Tipo de entrada</label>
+				<select name="idTipo">
+					<th:block th:each=" tipo : ${tipos}">
+						<option th:value="${tipo.id}" th:text="|${tipo.nombre} (${tipo.precio} €)|"/>
+					</th:block>
+				</select>
+				<br/>
+				
+				<!--Cada entrada debe de tener N fechas, y comprobar sobre la selecionada-->
+				<!--Mostrar solo las fechas que no tengan todas vendidas-->
+				<label>Fecha</label>
+				<input type="date" name="fecha"/>
+				<br/>
+				
+				<!--La entrada viene definida en funcion de la hora-->
+				<label>Hora</label>
+				<select name="idEntrada">
+					<th:block th:each=" entrada : ${entradas}">
+						<option th:value="${entrada.id}" th:text="${entrada.horario.hora}"/>
+					</th:block>
+				</select>
+				<br/>
+				
+				
+				<input type="submit" value="Comprar"/>
+				
+				<!--Aqui iria un calendiaro para la fecha + javascript
+				<div  th:each="tipo : ${tipos}" class="row card text-center m-auto bg-info">
+					<span th:text="|${tipo.nombre} (${tipo.precio} €)|"/>
+				</div>
+				-->
+				
+			</form>
+		</div>
+		<!--
+			<div class="card-subtitle">
+			Aqui iria el horario ? javascript
+			</div>
+			-->
+	</div>
+</div>
+
+
+
+
+

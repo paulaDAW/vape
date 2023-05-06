@@ -114,7 +114,10 @@ public class UsuarioController {
 	}
 
 	@GetMapping("u")
-	public String uGet(@RequestParam("id") Long idUsuario, ModelMap m) {
+	public String uGet(
+			@RequestParam("id") Long idUsuario,
+			ModelMap m
+			) {
 		Usuario usuario = usuarioService.getUsuarioById(idUsuario);
 		
 		m.put("usuario", usuario);
@@ -122,6 +125,17 @@ public class UsuarioController {
 
 		return "_t/frame";
 	}
+	
+	
+	/*
+	 Parte api-rest uPost
+	  //@ModelAttribute Usuario usuario
+	 
+		RestTemplate rt = new RestTemplate();
+		UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);
+		rt.postForEntity("http://localhost:8080/api/usuario/u", usuarioDTO, UsuarioDTO.class);
+	
+	 */
 
 	@PostMapping("u")
 	public String uPost(
@@ -129,30 +143,17 @@ public class UsuarioController {
 			@RequestParam("apellido2") String apellido2,
 			@RequestParam("nombre") String nombre,
 			@RequestParam("apellido1") String apellido1,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			@RequestParam("fnac") LocalDate fnac,
 			@RequestParam("email") String email,
 			@RequestParam("tarjeta") String tarjeta
-			
-			/*
-			 * @RequestParam("nombre") String nombre,
-			@RequestParam("apellidos") String apellidos,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			@RequestParam("fnac") LocalDate fnac,
-			@RequestParam("email") String email
-			*/
-			
-			//@ModelAttribute Usuario usuario
 			) throws DangerException {
-		//System.out.println(usuario.getApellidos()+"--"+usuario.getId());
 		String retorno = "redirect:/usuario/r";
+		/*
+		 Si es admin, llevar a la lista de usuarios
+		 Si es usuario, redirigir a su página del perfil
+		 Si no está registrado, redirigir login o registro
+		 */
 		try {
-			usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, tarjeta, email, fnac);
-			/*
-			RestTemplate rt = new RestTemplate();
-			UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);
-			rt.postForEntity("http://localhost:8080/api/usuario/u", usuarioDTO, UsuarioDTO.class);
-			*/
+			usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, tarjeta, email);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/usuario/r");
 		}

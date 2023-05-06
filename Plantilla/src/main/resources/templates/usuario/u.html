@@ -9,11 +9,11 @@
 		<br/>	
 			
 		<label for="idApellido1">Primer apellido</label>
-		<input id="idApellido1" type="text" th:value="${usuario.apellido1}" name="idApellido1" required="required"/>
+		<input id="idApellido1" type="text" th:value="${usuario.apellido1}" name="apellido1" required="required"/>
 		<br/>
 		
 		<label for="idApellido2">Segundo apellido</label>
-		<input id="idApellido2" type="text" th:value="${usuario?.apellido2}" name="idApellido2" required="required"/>
+		<input id="idApellido2" type="text" th:value="${usuario?.apellido2}" name="apellido2" required="required"/>
 		<br/>
 			
 		<label for="idEmail">Email</label>
@@ -21,7 +21,7 @@
 		<br/>
 		
 		<label for="idTarjeta">Mostrar solo últimos digitos(Que no se ve en el cogido tampoco)</label>
-		<input id="idTarjeta" th:value="${usuario.tarjeta}" type="text" name="tarjeta" required="required"/>
+		<input id="idTarjeta" th:value="${usuario.tarjeta} != null ? ${usuario.tarjeta} : '0000'" type="text" name="tarjeta" required="required"/>
 		<br/>
 		
 		<!--Opción para cambiar de contraseña-->

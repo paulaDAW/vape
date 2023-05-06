@@ -1,7 +1,6 @@
 <h4 class="card-subtitle p-2 text-white  text-center">
-	Bienvenido al Museo VAPE (Museo de Variedad, Arte, Pintura y Escritura)
+	Bienvenido al Museo VAPE (Museo Vanguardista de Arte, Pintura y Escultura)
 </h4>
-
 
 <!--Imagenes-->
 <div class="container mt-2">
@@ -54,12 +53,14 @@
   				<h5 class="card-title">Tarifas</h5>
     			<p class="card-text">
 					<th:block th:each=" tipo : ${tipos}">
-						<span th:text="|${tipo.nombre} : ${tipo.precio}|"/><br/>
+						<span th:text="|${tipo.nombre} : ${tipo.precio} €|"/><br/>
 					</th:block>
     			</p>
   			</div>
   		</div>
-  		<a href="/entrada/r" class="btn m-2 btn-primary">Comprar entradas</a>
+  		<a href="/comprar/r" class="btn m-2 btn-primary">
+			<img src="/img/ticket-solid.svg" alt="Ticket" style="width:40px;">&nbsp&nbspComprar entradas
+		</a>
   	</div>
   	<div class="card-footer text-muted bg-black">
   		<p class="card-text">
@@ -72,7 +73,7 @@
 <!--Footer-->
 <footer>
 	<div class="card-footer text-muted bg-black">
-  		<div class="row">
+  		<div class="row text-white justify-content-around">
     		<div class="col"><span>Contacto</span></div>
     		<div class="col"><span>Aviso Legal</span></div>
     		<div class="col"><span>Trabaja con nosotros</span></div>

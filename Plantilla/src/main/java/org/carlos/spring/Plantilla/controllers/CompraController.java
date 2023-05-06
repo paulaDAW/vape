@@ -75,6 +75,7 @@ public class CompraController {
 
 			//usuarioService.confirmacionCompra(email);
 
+
 		}catch(Exception e){
 			PRG.error(e.getMessage(),"/");
 		}

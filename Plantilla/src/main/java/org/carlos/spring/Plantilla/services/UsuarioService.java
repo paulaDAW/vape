@@ -1,13 +1,13 @@
 package org.carlos.spring.Plantilla.services;
 
 
+
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import java.util.List;
 import org.carlos.spring.Plantilla.entities.Rol;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.repositories.RolRepository;
@@ -35,7 +35,6 @@ public class UsuarioService {
 	@Autowired
 	private RolRepository rolRepository;
 	
-
 	@Autowired 
 	private RolService rolService;
 

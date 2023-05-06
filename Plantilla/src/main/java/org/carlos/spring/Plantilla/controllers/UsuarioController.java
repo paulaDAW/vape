@@ -173,5 +173,6 @@ public class UsuarioController {
 		usuarioService.deleteUsuario(id);
 		return "redirect:/usuario/r";
 	}
+
 }
 

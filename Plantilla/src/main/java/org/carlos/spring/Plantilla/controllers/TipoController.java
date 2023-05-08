@@ -2,7 +2,9 @@ package org.carlos.spring.Plantilla.controllers;
 
 import java.util.List;
 import org.carlos.spring.Plantilla.entities.Tipo;
+import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
+import org.carlos.spring.Plantilla.helpers.H;
 import org.carlos.spring.Plantilla.helpers.PRG;
 import org.carlos.spring.Plantilla.services.TipoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/tipo")
@@ -29,8 +33,14 @@ public class TipoController {
 	@PostMapping("c")
 	public String cPost(
 			@RequestParam("nombre") String nombre,
-			@RequestParam("precio") double precio
+			@RequestParam("precio") double precio,
+			HttpSession s
 			) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		try {
 			tipoService.saveTipo(nombre,precio);
 		} catch (Exception e) {
@@ -40,7 +50,12 @@ public class TipoController {
 	}
 
 	@GetMapping("r")
-	public String rGet(ModelMap m) {
+	public String rGet(ModelMap m, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		List<Tipo> tipos = tipoService.getTipos();
 		m.put("tipos", tipos);
 		m.put("view", "tipo/r");
@@ -48,7 +63,12 @@ public class TipoController {
 	}
 
 	@GetMapping("u")
-	public String uGet(@RequestParam("id") Long idTipo, ModelMap m) {
+	public String uGet(@RequestParam("id") Long idTipo, ModelMap m,HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		Tipo tipo = tipoService.getTipoById(idTipo);
 
 		m.put("tipo", tipo);
@@ -61,8 +81,15 @@ public class TipoController {
 	public String uPost(
 			@RequestParam("idTipo") Long idTipo,
 			@RequestParam("precio") double precio,
-			@RequestParam("nombre") String nombre) throws DangerException {
+			@RequestParam("nombre") String nombre,
+			HttpSession s) throws DangerException {
+		
 		String retorno = "redirect:/tipo/r";
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		try {
 			tipoService.updateTipo(idTipo, nombre, precio);
 		} catch (Exception e) {
@@ -72,7 +99,12 @@ public class TipoController {
 	}
 
 	@PostMapping("d")
-	public String d(@RequestParam("id") Long id) {
+	public String d(@RequestParam("id") Long id, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		tipoService.deleteTipo(id);
 		return "redirect:/tipo/r";
 	}

@@ -98,7 +98,7 @@ public class UsuarioService {
 	}
 
 	//public void updateUsuario(UsuarioDTO usuarioDTO) throws Exception {
-	public void updateUsuario(
+	public Usuario updateUsuario(
 			Long idUsuario,
 			String nombre,
 			String apellido1,
@@ -117,7 +117,7 @@ public class UsuarioService {
 		} catch (Exception e) {
 			throw new Exception("Ha ocurrido un error. Inténtelo de nuevo.");
 		}
-		
+		return usuario;
 	}
 
 	public void deleteUsuario(Long id) {

@@ -4,6 +4,9 @@
 			Mis entradas
 		</div>
 		<div class="card-body m-auto">
+			<div class="card" th:if="${entradas.size() == 0}">
+				<span>Aún no has comprado ninguna entrada</span>
+			</div>
 			<div th:each=" entradaComprada : ${entradas}" class="card border-6 w-100 p-4">
 				<div class="row">
 					<div class="col-3">

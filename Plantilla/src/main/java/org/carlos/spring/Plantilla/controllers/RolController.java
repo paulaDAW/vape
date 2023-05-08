@@ -36,7 +36,15 @@ public class RolController {
 	}
 
 	@PostMapping("c")
-	public String cPost(@RequestParam("nombre") String nombre) throws DangerException {
+	public String cPost(
+			@RequestParam("nombre") String nombre,
+			HttpSession s
+			) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		try {
 			rolService.saveRol(nombre);
 		} catch (Exception e) {
@@ -46,7 +54,15 @@ public class RolController {
 	}
 
 	@GetMapping("r")
-	public String rGet(ModelMap m) {
+	public String rGet(
+			ModelMap m,
+			HttpSession s
+			) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 
 		List<Rol> roles = rolService.getRoles();
 
@@ -56,7 +72,12 @@ public class RolController {
 	}
 
 	@GetMapping("u")
-	public String uGet(@RequestParam("id") Long idRol, ModelMap m) {
+	public String uGet(@RequestParam("id") Long idRol, ModelMap m, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		Rol rol = rolService.getRolById(idRol);
 
 		m.put("rol", rol);
@@ -67,8 +88,14 @@ public class RolController {
 
 	@PostMapping("u")
 	public String uPost(@RequestParam("idRol") Long idRol,
-			@RequestParam("nombre") String nombre) throws DangerException {
+			@RequestParam("nombre") String nombre, HttpSession s) throws DangerException {
+		
 		String retorno = "redirect:/rol/r";
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		try {
 			rolService.updateRol(idRol, nombre);
 		} catch (Exception e) {
@@ -78,7 +105,13 @@ public class RolController {
 	}
 
 	@PostMapping("d")
-	public String d(@RequestParam("id") Long id) {
+	public String d(@RequestParam("id") Long id, HttpSession s) throws DangerException {
+		
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		rolService.deleteRol(id);
 		return "redirect:/rol/r";
 	}

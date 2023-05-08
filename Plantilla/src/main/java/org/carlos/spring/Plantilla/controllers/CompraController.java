@@ -4,6 +4,7 @@ package org.carlos.spring.Plantilla.controllers;
 import java.time.LocalDate;
 
 import org.carlos.spring.Plantilla.entities.Entrada;
+import org.carlos.spring.Plantilla.entities.EntradaComprada;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.PRG;
@@ -50,15 +51,72 @@ public class CompraController {
 		return "_t/frame";
 	}
 	
-	@PostMapping("r")
-	public String rPost(
+	@PostMapping("confirmar")
+	public String confirmar(
+			@RequestParam("idEntrada") Long idEntrada,
+			@RequestParam("numTarjeta") String numTarjeta,
+			@RequestParam("numCcv") int numCcv,
+			HttpSession s
+			) throws DangerException {
+		String retorno="redirect:/comprar/confirmacion";
+
+		try {
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
+		try {
+			Usuario usuario = (Usuario)(s.getAttribute("usuario"));
+			EntradaComprada entrada = entradaCompradaService.getEntradaCompradaById(idEntrada);
+			if(usuario.getId() != entrada.getUsuario().getId()) {
+				entradaCompradaService.deleteEntradaComprada(idEntrada);
+				throw new Exception("Ha habido un error al registrar su compra.\n Reinténtalo");
+			}
+			usuarioService.confirmacionCompra(usuario.getEmail());
+
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/");
+		}
+		return retorno;
+	}
+	
+	@PostMapping("cancelar")
+	public String cancelar(
+			@RequestParam("idEntrada") Long idEntrada,
+			HttpSession s
+			) throws DangerException {
+		String retorno="redirect:/comprar/confirmacion";
+
+		try {
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
+		try {
+			Usuario usuario = (Usuario)(s.getAttribute("usuario"));
+			EntradaComprada entrada = entradaCompradaService.getEntradaCompradaById(idEntrada);
+			if(usuario.getId() == entrada.getId()) {
+				entradaCompradaService.deleteEntradaComprada(idEntrada);
+			}
+
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/");
+		}
+		
+		return retorno;
+	}
+	
+	@GetMapping("resumen")
+	public String resumen(
 			@RequestParam("idTipo") Long idTipo,
 			@RequestParam("cantidad") int cantidad,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			@RequestParam("fecha") LocalDate fecha,
-			HttpSession s
+			HttpSession s,
+			ModelMap m
 			) throws DangerException {
-		String retorno="redirect:/comprar/confirmacion";
+		
+		//String retorno="redirect:/comprar/resumen";
 		LocalDate fechaCompra = LocalDate.now();
 		Entrada entrada = entradaService.getEntradaByFecha(fecha);
 		try {
@@ -71,16 +129,18 @@ public class CompraController {
 			if((entrada.getNumeroVendido()+cantidad) > entrada.getNumeroMaximo()) {
 				throw new Exception("Supera el límite de entradas disponibles");
 			}
-			entradaCompradaService.saveEntradaComprada((Usuario)(s.getAttribute("usuario")) ,idTipo, entrada.getId(), cantidad, fechaCompra);
-
-			//usuarioService.confirmacionCompra(email);
-
-
+			EntradaComprada entradaReservada = entradaCompradaService.saveEntradaComprada((Usuario)(s.getAttribute("usuario")) ,idTipo, entrada.getId(), cantidad, fechaCompra);
+			//Guarda la entrada, pero si en la confirmacion cancela, brorrar la entrada y ajustar vendidas.
+			m.put("entrada", entradaReservada);
+			m.put("precioTotal",(cantidad*(entradaReservada.getTipo().getPrecio())));
+			m.put("view", "/comprar/resumen");
 		}catch(Exception e){
 			PRG.error(e.getMessage(),"/");
 		}
-		return retorno;
+		return "_t/frame";
 	}
+	
+	
 
 	
 	@GetMapping("confirmacion")

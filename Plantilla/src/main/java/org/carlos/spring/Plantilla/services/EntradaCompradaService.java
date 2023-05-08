@@ -23,14 +23,14 @@ public class EntradaCompradaService {
 	@Autowired
 	private TipoService tipoService;
 	
-	//@Autowired
-	//private UsuarioService usuarioService;
+	@Autowired
+	private UsuarioService usuarioService;
 
 	public List<EntradaComprada> getEntradaCompradas() {
 		return entradaCompradaRepository.findAll();
 	}
 
-	public void saveEntradaComprada(Usuario usuario, Long idTipo,Long idEntrada,int cantidad, LocalDate fechaCompra) throws Exception {
+	public EntradaComprada saveEntradaComprada(Usuario usuario, Long idTipo,Long idEntrada,int cantidad, LocalDate fechaCompra) throws Exception {
 		EntradaComprada entradaComprada = EntradaComprada.builder().cantidad(cantidad)
 				.fechaCompra(fechaCompra).build();
 		Tipo tipo = tipoService.getTipoById(idTipo);
@@ -44,6 +44,7 @@ public class EntradaCompradaService {
 		} catch (Exception e) {
 			throw new Exception("Error al comprar la entrada");
 		}
+		return entradaComprada;
 	}
 
 	public EntradaComprada getEntradaCompradaById(Long id) {
@@ -61,8 +62,8 @@ public class EntradaCompradaService {
 	}
 
 	public void deleteEntradaComprada(Long id) {
-		EntradaComprada EntradaComprada = entradaCompradaRepository.findById(id).get();
-		entradaCompradaRepository.delete(EntradaComprada);
+		EntradaComprada entradaComprada = entradaCompradaRepository.findById(id).get();
+		entradaCompradaRepository.delete(entradaComprada);
 	}
 
 	public List<EntradaComprada> getMisEntradas(Usuario usuario) {

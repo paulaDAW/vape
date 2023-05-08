@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="card">
+		<div class="card-head bg-warning">
+			Resumen de compra
+		</div>
+		<div class="card-body">
+			<div class="card">
+				<span th:text="|Entrada: ${entrada.tipo.nombre}|"></span><br/>
+				<span th:text="|Precio: (${entrada.tipo.precio}€ *${entrada.cantidad}) = ${precioTotal} €|"></span><br/>
+				<span th:text="|Fecha: ${entrada.entrada.fecha}|"></span><br/>
+			</div>
+			<div class="card">
+				<form action="/comprar/confirmar" method="post">
+					<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>
+					
+					<label for="id-Tarjeta">Número de tarjeta</label>
+					<input type="text" name="numTarjeta" placeholder="0000 0000 0000 0000"/><br>
+				
+					<label for="id-CCV">CCV</label>
+					<input type="password" name="numCcv" placeholder="000"/><br/>
+					
+					<input type="submit" class="btn btn-primary" value="Confirmar y pagar"/>
+				</form>
+				<form action="/comprar/cancelar" method="post">
+					<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>
+					
+					<input type="submit" class="btn btn-danger" value="Cancelar compra y volver"/>
+				</form>
+				
+			</div>
+		</div>
+		<div class="card-footer">
+			
+		</div>
+	</div>
+</div>

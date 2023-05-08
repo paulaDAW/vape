@@ -3,7 +3,9 @@ package org.carlos.spring.Plantilla.controllers;
 import java.time.LocalDate;
 import java.util.List;
 import org.carlos.spring.Plantilla.entities.Entrada;
+import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
+import org.carlos.spring.Plantilla.helpers.H;
 import org.carlos.spring.Plantilla.helpers.PRG;
 import org.carlos.spring.Plantilla.services.EntradaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/entrada")
 public class EntradaController {
@@ -25,7 +29,12 @@ public class EntradaController {
 
 	
 	@GetMapping("c")
-	public String cGet(ModelMap m) {
+	public String cGet(ModelMap m, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		m.put("view", "entrada/c");
 		return "_t/frame";
 	}
@@ -34,11 +43,16 @@ public class EntradaController {
 	public String cPost(
 			@RequestParam("numeroMax") int numeroMax,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			@RequestParam("fecha") LocalDate fecha
-			
+			@RequestParam("fecha") LocalDate fecha,
+			HttpSession s
 			) throws DangerException {
 		//TO-DO
 		//Comprobar aquí y en javascript si el numero maximo es un numero valido
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		int numeroVen = 0;
 		try {
 			entradaService.saveEntrada(numeroMax,numeroVen,fecha);
@@ -49,7 +63,12 @@ public class EntradaController {
 	}
 
 	@GetMapping("r")
-	public String rGet(ModelMap m) {
+	public String rGet(ModelMap m, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		List<Entrada> entradas = entradaService.getEntradas();
 		m.put("entradas", entradas);
 		m.put("view", "entrada/r");
@@ -57,7 +76,12 @@ public class EntradaController {
 	}
 
 	@GetMapping("u")
-	public String uGet(@RequestParam("id") Long idEntrada, ModelMap m) {
+	public String uGet(@RequestParam("id") Long idEntrada, ModelMap m, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		Entrada entrada = entradaService.getEntradaById(idEntrada);
 		m.put("entrada", entrada);
 		m.put("view", "entrada/u");
@@ -71,9 +95,16 @@ public class EntradaController {
 			@RequestParam("numeroMax") int numeroMax,
 			@RequestParam("numeroVen") int numeroVen,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-			@RequestParam("fecha") LocalDate fecha
+			@RequestParam("fecha") LocalDate fecha,
+			HttpSession s
 			) throws DangerException {
 		String retorno = "redirect:/entrada/r";
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
+		
 		try {
 			
 			entradaService.updateEntrada(idEntrada, numeroMax, numeroVen, fecha);
@@ -84,7 +115,12 @@ public class EntradaController {
 	}
 
 	@PostMapping("d")
-	public String d(@RequestParam("id") Long id) {
+	public String d(@RequestParam("id") Long id, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		entradaService.deleteEntrada(id);
 		return "redirect:/entrada/r";
 	}

@@ -1,32 +1,32 @@
 package org.carlos.spring.Plantilla.controllers;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
+//import java.lang.reflect.Array;
+
 import java.util.List;
 
-import org.carlos.spring.Plantilla.dto.UsuarioDTO;
-import org.carlos.spring.Plantilla.entities.EntradaComprada;
+
+//import org.carlos.spring.Plantilla.entities.EntradaComprada;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
-import org.carlos.spring.Plantilla.helpers.H;
+
 import org.carlos.spring.Plantilla.helpers.PRG;
-import org.carlos.spring.Plantilla.services.EntradaCompradaService;
+//import org.carlos.spring.Plantilla.services.EntradaCompradaService;
 import org.carlos.spring.Plantilla.services.RolService;
 import org.carlos.spring.Plantilla.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
 import jakarta.servlet.http.HttpSession;
+
+
+//import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/usuario")
@@ -38,8 +38,8 @@ public class UsuarioController {
 	@Autowired
 	private RolService rolService;
 	
-	@Autowired
-	private EntradaCompradaService entradaCompradaService;
+	//@Autowired
+	//private EntradaCompradaService entradaCompradaService;
 
 	@GetMapping("c")
 	public String cGet(ModelMap m) {
@@ -152,18 +152,20 @@ public class UsuarioController {
 			@RequestParam("nombre") String nombre,
 			@RequestParam("apellido1") String apellido1,
 			@RequestParam("email") String email,
-			@RequestParam("tarjeta") String tarjeta
+			@RequestParam("tarjeta") String tarjeta,
+			HttpSession s
 			) throws DangerException {
-		String retorno = "redirect:/usuario/r";
+		String retorno = "redirect:/";
 		/*
 		 Si es admin, llevar a la lista de usuarios
 		 Si es usuario, redirigir a su página del perfil
 		 Si no está registrado, redirigir login o registro
 		 */
 		try {
-			usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, tarjeta, email);
+			Usuario usuarioActualizdo = usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, tarjeta, email);
+			s.setAttribute("usuario", usuarioActualizdo);
 		} catch (Exception e) {
-			PRG.error(e.getMessage(), "/usuario/r");
+			PRG.error(e.getMessage(), "/");
 		}
 		return retorno;
 	}

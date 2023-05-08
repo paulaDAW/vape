@@ -4,8 +4,8 @@
 	<div class="col justify-content-around">
 		<div class="row">
 			<div class="col-auto mr-auto ">	
-				<a class="navbar-brand btn p-0 ml-2 btn-sm" href="/" role="button">
-					&nbsp<img src="/img/landmark-solid.svg" alt="INICIO" style="width:40px;">&nbsp Inicio
+				<a class="navbar-brand btn p-0 m-auto btn-sm" href="/" role="button">
+					&nbsp<img src="/img/landmark-solid.svg" alt="INICIO" class="m-auto" style="width:40px;"> Museo VAPE
 				</a>
 			</div>
 			
@@ -17,6 +17,12 @@
 			
 			<div th:if="${session.usuario==null}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/register" role="button"> Registrarse </a>
+			</div>
+			
+			<div th:if="${session.usuario!=null && session.usuario.getRol().getNombre() == 'admin'}" class="col-auto m-2">
+				<a class="btn btn-primary btn-sm" href="/entrada/r" role="button">
+					Gestionar entradas
+				</a>
 			</div>
 			
 			<div th:if="${session.usuario!=null}" class="col-auto m-2">

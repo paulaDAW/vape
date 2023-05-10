@@ -27,7 +27,7 @@ public class RolController {
 	@GetMapping("c")
 	public String cGet(ModelMap m, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("No puedes acceder ("+ e.getMessage() + ")");
 		}
@@ -41,7 +41,7 @@ public class RolController {
 			HttpSession s
 			) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -59,7 +59,7 @@ public class RolController {
 			HttpSession s
 			) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -74,7 +74,7 @@ public class RolController {
 	@GetMapping("u")
 	public String uGet(@RequestParam("id") Long idRol, ModelMap m, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -92,7 +92,7 @@ public class RolController {
 		
 		String retorno = "redirect:/rol/r";
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -108,7 +108,7 @@ public class RolController {
 	public String d(@RequestParam("id") Long id, HttpSession s) throws DangerException {
 		
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}

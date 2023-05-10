@@ -38,6 +38,7 @@ public class AuthController {
 		try {
 			
 			s.setAttribute("usuario", usuarioService.autenticarUsuario(email,password));
+			s.setAttribute("rolAdmin", "admin");
 		} catch (Exception e) {
 			PRG.error(e.getMessage(),"/");
 		}

@@ -19,9 +19,27 @@
 				<a class="btn btn-primary btn-sm" href="/register" role="button"> Registrarse </a>
 			</div>
 			
-			<div th:if="${session.usuario!=null && session.usuario.getRol().getNombre() == 'admin'}" class="col-auto m-2">
-				<a class="btn btn-primary btn-sm" href="/entrada/r" role="button">
-					Gestionar entradas
+			<div  class="col-auto m-2">
+				<a class="btn btn-primary btn-sm" href="/confirmar/enviar"
+				 th:text="|Boton prueba correo |" role="button">
+				</a>
+			</div>
+			
+			<div th:if="${session.usuario != null and session.usuario.rol.nombre eq 'admin'}" class="col-auto m-2">
+				<a class="btn btn-primary btn-sm" href="/entrada/r"
+				 th:text="|Gestionar entradas |" role="button">
+				</a>
+			</div>
+			
+			<div th:if="${session.usuario != null and session.usuario.rol.nombre eq 'admin'}" class="col-auto m-2">
+				<a class="btn btn-primary btn-sm" href="/rol/r"
+				 th:text="|Administrar roles |" role="button">
+				</a>
+			</div>
+			
+			<div th:if="${session.usuario != null and session.usuario.rol.nombre eq 'admin'}" class="col-auto m-2">
+				<a class="btn btn-primary btn-sm" href="/tipo/r"
+				 th:text="|Gestionar tipos |" role="button">
 				</a>
 			</div>
 			

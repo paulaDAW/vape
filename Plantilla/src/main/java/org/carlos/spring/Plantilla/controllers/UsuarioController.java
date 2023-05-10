@@ -8,7 +8,7 @@ import java.util.List;
 //import org.carlos.spring.Plantilla.entities.EntradaComprada;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
-
+import org.carlos.spring.Plantilla.helpers.H;
 import org.carlos.spring.Plantilla.helpers.PRG;
 //import org.carlos.spring.Plantilla.services.EntradaCompradaService;
 import org.carlos.spring.Plantilla.services.RolService;
@@ -42,7 +42,15 @@ public class UsuarioController {
 	//private EntradaCompradaService entradaCompradaService;
 
 	@GetMapping("c")
-	public String cGet(ModelMap m) {
+	public String cGet(
+			ModelMap m,
+			HttpSession s
+			) throws DangerException {
+		try {
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		m.put("roles", rolService.getRoles());
 		m.put("view", "usuario/c");
 		return "_t/frame";
@@ -69,9 +77,15 @@ public class UsuarioController {
 	
 	@PostMapping("c")
 	public String cPost(
-			@ModelAttribute Usuario usuario //Recoge los campos del formulario de creación
+			@ModelAttribute Usuario usuario, //Recoge los campos del formulario de creación
+			HttpSession s
 			) throws DangerException {
 		//System.out.println(usuario.getNombre());
+		try {
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		try {
 			usuarioService.saveUsuario(usuario);
 		} catch (Exception e) {
@@ -87,8 +101,13 @@ public class UsuarioController {
 	}
 
 	@GetMapping("r")
-	public String rGet(ModelMap m) {
+	public String rGet(ModelMap m, HttpSession s) throws DangerException {
 		//List<UsuarioDTO> usuarios = usuarioService.getUsuarios();
+		try {
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		List<Usuario> usuarios = usuarioService.getUsuarios();
 		m.put("usuarios", usuarios);
 		m.put("view", "usuario/r");
@@ -124,8 +143,14 @@ public class UsuarioController {
 	@GetMapping("u")
 	public String uGet(
 			@RequestParam("id") Long idUsuario,
-			ModelMap m
-			) {
+			ModelMap m,
+			HttpSession s
+			) throws DangerException {
+		try {
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
 		Usuario usuario = usuarioService.getUsuarioById(idUsuario);
 		
 		m.put("usuario", usuario);
@@ -160,7 +185,14 @@ public class UsuarioController {
 		 Si es admin, llevar a la lista de usuarios
 		 Si es usuario, redirigir a su página del perfil
 		 Si no está registrado, redirigir login o registro
+		 
 		 */
+		
+		try {
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
 		try {
 			Usuario usuarioActualizdo = usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, tarjeta, email);
 			s.setAttribute("usuario", usuarioActualizdo);
@@ -171,7 +203,12 @@ public class UsuarioController {
 	}
 
 	@PostMapping("d")
-	public String d(@RequestParam("id") Long id) {
+	public String d(@RequestParam("id") Long id, HttpSession s) throws DangerException {
+		try {
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
+		} catch (Exception e) {
+			PRG.error("Acceso denegado");
+		}
 		usuarioService.deleteUsuario(id);
 		return "redirect:/usuario/r";
 	}

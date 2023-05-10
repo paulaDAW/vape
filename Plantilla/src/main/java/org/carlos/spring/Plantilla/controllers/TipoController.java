@@ -37,7 +37,7 @@ public class TipoController {
 			HttpSession s
 			) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -52,7 +52,7 @@ public class TipoController {
 	@GetMapping("r")
 	public String rGet(ModelMap m, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -65,7 +65,7 @@ public class TipoController {
 	@GetMapping("u")
 	public String uGet(@RequestParam("id") Long idTipo, ModelMap m,HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -86,7 +86,7 @@ public class TipoController {
 		
 		String retorno = "redirect:/tipo/r";
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -101,7 +101,7 @@ public class TipoController {
 	@PostMapping("d")
 	public String d(@RequestParam("id") Long id, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}

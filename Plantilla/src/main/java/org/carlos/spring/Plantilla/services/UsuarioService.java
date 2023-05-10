@@ -155,4 +155,20 @@ public class UsuarioService {
 			throw new Exception("Ha ocurrido un error");
 		}
 	}
+	
+	public void envioConfirmarRegistro(String emailTo) throws Exception {
+		MimeMessage mensaje = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensaje,true);
+			String texto = "Bienvenido al museo. Ve al siguiente enlace para confirmar tu registro.";
+			String html = "<a href='localhost/confirmar/registro' class='btn btn-info'>Confirmar</a>";
+			helper.setFrom(email);
+			helper.setTo(emailTo);
+			helper.setSubject("Museo VAPE Confirmación de correo electrónico");
+			helper.setText(texto, html);
+			javaMailSender.send(mensaje);
+		} catch (Exception e) {
+			throw new Exception("Ha ocurrido un error al registrarte.");
+		}
+	}
 }

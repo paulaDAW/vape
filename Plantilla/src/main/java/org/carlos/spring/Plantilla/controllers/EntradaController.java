@@ -31,9 +31,9 @@ public class EntradaController {
 	@GetMapping("c")
 	public String cGet(ModelMap m, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
-			PRG.error("Acceso denegado");
+			PRG.error(e.getMessage());
 		}
 		m.put("view", "entrada/c");
 		return "_t/frame";
@@ -49,7 +49,7 @@ public class EntradaController {
 		//TO-DO
 		//Comprobar aquí y en javascript si el numero maximo es un numero valido
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -65,7 +65,7 @@ public class EntradaController {
 	@GetMapping("r")
 	public String rGet(ModelMap m, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -78,7 +78,7 @@ public class EntradaController {
 	@GetMapping("u")
 	public String uGet(@RequestParam("id") Long idEntrada, ModelMap m, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -100,7 +100,7 @@ public class EntradaController {
 			) throws DangerException {
 		String retorno = "redirect:/entrada/r";
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}
@@ -117,7 +117,7 @@ public class EntradaController {
 	@PostMapping("d")
 	public String d(@RequestParam("id") Long id, HttpSession s) throws DangerException {
 		try {
-			H.isRolOk("Admin", (Usuario)(s.getAttribute("usuario")));
+			H.isRolOk("admin", (Usuario)(s.getAttribute("usuario")));
 		} catch (Exception e) {
 			PRG.error("Acceso denegado");
 		}

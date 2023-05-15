@@ -152,7 +152,9 @@ public class UsuarioController {
 			PRG.error(e.getMessage(),"/login");
 		}
 		Usuario usuario = usuarioService.getUsuarioById(idUsuario);
-		
+		String[] numerosTarjeta = usuario.getTarjeta().split(" ");
+		String tarjeta = "**** **** **** "+ numerosTarjeta[numerosTarjeta.length -1];
+		m.put("tarjeta", tarjeta);
 		m.put("usuario", usuario);
 		m.put("view", "usuario/u");
 

@@ -2,6 +2,7 @@ package org.carlos.spring.Plantilla.controllers;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.carlos.spring.Plantilla.entities.Entrada;
 import org.carlos.spring.Plantilla.entities.EntradaComprada;
@@ -66,9 +67,23 @@ public class CompraController {
 			PRG.error(e.getMessage(),"/login");
 		}
 		try {
+			s.setAttribute("reservada", false);//campo a cero
 			Usuario usuario = (Usuario)(s.getAttribute("usuario"));
-			EntradaComprada entrada = entradaCompradaService.getEntradaCompradaById(idEntrada);
-			if(usuario.getId() != entrada.getUsuario().getId()) {
+			EntradaComprada entradaComprada = entradaCompradaService.getEntradaCompradaById(idEntrada);
+			Entrada entrada = entradaComprada.getEntrada();
+			
+			//Comprobación Tarjeta de crédito
+			if(!numTarjeta.trim().toString().equals(usuario.getTarjeta().trim().toString())) {
+				entradaCompradaService.deleteEntradaComprada(idEntrada);
+				entradaService.cancelarEntrada(entrada, entradaComprada.getCantidad());
+				throw new Exception("La tarjeta introducida no es correcta. Por favor, inténtelo de nuevo");
+			}
+			/*
+			 Convertirlo en numeros, dividir entre cierto numero, y el resto que sea igual al ccv
+			 */
+			
+			
+			if(usuario.getId() != entradaComprada.getUsuario().getId()) {
 				entradaCompradaService.deleteEntradaComprada(idEntrada);
 				throw new Exception("Ha habido un error al registrar su compra.\n Reinténtalo");
 			}
@@ -85,6 +100,7 @@ public class CompraController {
 			@RequestParam("idEntrada") Long idEntrada,
 			HttpSession s
 			) throws DangerException {
+		
 		String retorno="redirect:/comprar/confirmacion";
 
 		try {
@@ -93,10 +109,14 @@ public class CompraController {
 			PRG.error(e.getMessage(),"/login");
 		}
 		try {
+			s.setAttribute("reservada", false);//campo a cero
 			Usuario usuario = (Usuario)(s.getAttribute("usuario"));
-			EntradaComprada entrada = entradaCompradaService.getEntradaCompradaById(idEntrada);
-			if(usuario.getId() == entrada.getId()) {
+			EntradaComprada entradaComprada = entradaCompradaService.getEntradaCompradaById(idEntrada);
+			Entrada entrada = entradaComprada.getEntrada();
+			if(usuario.getId() == entradaComprada.getUsuario().getId()) {
 				entradaCompradaService.deleteEntradaComprada(idEntrada);
+				entradaService.cancelarEntrada(entrada, entradaComprada.getCantidad());
+				//metodo a entrada, con id entrada, cantidad de entradacomprada, para dismunir el numVendido
 			}
 
 		}catch(Exception e){
@@ -114,8 +134,8 @@ public class CompraController {
 			@RequestParam("fecha") LocalDate fecha,
 			HttpSession s,
 			ModelMap m
-			) throws DangerException {
-		
+			) throws Exception {
+		int aforo = 200;
 		//String retorno="redirect:/comprar/resumen";
 		LocalDate fechaCompra = LocalDate.now();
 		Entrada entrada = entradaService.getEntradaByFecha(fecha);
@@ -125,12 +145,32 @@ public class CompraController {
 			PRG.error(e.getMessage(),"/login");
 		}
 		try {
-
+			//System.out.println("ID entrada"+entrada.getId());
+			System.out.println((boolean)s.getAttribute("reservada"));
+			if((boolean)s.getAttribute("reservada")== false && entrada == null && aforo >= cantidad ){//campo entradaMax nulo ó cero->poner a uno
+				entrada = entradaService.saveEntrada(aforo, 0, fecha);
+				s.setAttribute("reservada", true);
+			}else if((boolean)s.getAttribute("reservada")==true){
+				System.out.println("Hola que tal");
+				Usuario usuarioActual = (Usuario)s.getAttribute("usuario");
+				List<EntradaComprada> listaEntradas =  (List<EntradaComprada>) usuarioActual.getEntradasCompradas();
+				EntradaComprada ultima = listaEntradas.get(listaEntradas.size()-1);
+				System.out.println(ultima.getId());
+				entradaService.cancelarEntrada(entrada, ultima.getCantidad());
+				entradaCompradaService.deleteEntradaComprada(ultima.getId());
+				
+				s.setAttribute("reservada", false);
+				throw new Exception("Error al comprar. Se ha cancelado su reserva. Si desea comprar entradas, vuelva a seleccionarlas");
+				//Cancelar la última entrada comprada creada y dismunir ventas en entrada
+				
+				
+			}//si es uno o mas, lanzar error(Confirma o cancela tu compra actual)
 			if((entrada.getNumeroVendido()+cantidad) > entrada.getNumeroMaximo()) {
 				throw new Exception("Supera el límite de entradas disponibles");
 			}
 			EntradaComprada entradaReservada = entradaCompradaService.saveEntradaComprada((Usuario)(s.getAttribute("usuario")) ,idTipo, entrada.getId(), cantidad, fechaCompra);
-			//Guarda la entrada, pero si en la confirmacion cancela, brorrar la entrada y ajustar vendidas.
+			//Guarda la entrada, pero si en la confirmacion cancela, borrar la entrada y ajustar vendidas.
+			s.setAttribute("reservada", true);
 			m.put("entrada", entradaReservada);
 			m.put("precioTotal",(cantidad*(entradaReservada.getTipo().getPrecio())));
 			m.put("view", "/comprar/resumen");

@@ -11,7 +11,7 @@
 				Entradas
 			</div>
 		</div>
-		<div class="card-body text-center">
+		<div class="card-body text-center align-items-center">
 			<form action="/comprar/resumen" ><!--Crear vista confirmacion-->
 				<label>Numero de entradas</label>
 				<input type="number" name="cantidad" />
@@ -28,30 +28,21 @@
 				<!--Cada entrada debe de tener N fechas, y comprobar sobre la selecionada-->
 				<!--Mostrar solo las fechas que no tengan todas vendidas-->
 				<label>Fecha</label>
-				<input type="date" name="fecha" />
+				<div id="datepicker" class="text-center"></div>
+				<input type="hidden" name="fecha" id="fechaC"/>
 				<br/>
-				
-				<!--La entrada viene definida en funcion de la fecha-->
-
-				
+							
 				
 				<input type="submit" value="Comprar"/>
 				
-				<!--Aqui iria un calendiaro para la fecha + javascript
-				<div  th:each="tipo : ${tipos}" class="row card text-center m-auto bg-info">
-					<span th:text="|${tipo.nombre} (${tipo.precio} €)|"/>
-				</div>
-				-->
 				
 			</form>
 		</div>
-		<!--
-			<div class="card-subtitle">
-			Aqui iria el horario ? javascript
-			</div>
-			-->
+		
 	</div>
 </div>
+
+<script src="/js/fecha.js"></script>
 
 
 

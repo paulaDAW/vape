@@ -1,13 +1,13 @@
 package org.carlos.spring.Plantilla.controllers;
 
-import java.time.LocalDate;
+
 
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.PRG;
 import org.carlos.spring.Plantilla.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +36,13 @@ public class AuthController {
 			HttpSession s
 			) throws DangerException {
 		try {
-			
-			s.setAttribute("usuario", usuarioService.autenticarUsuario(email,password));
+			Usuario usuario = usuarioService.autenticarUsuario(email,password);
+			if(usuario.isActivado()==false) {
+				throw new Exception("Debe de confirmar su registro para poder continuar");
+			}
+			s.setAttribute("usuario", usuario);
 			s.setAttribute("rolAdmin", "admin");
+			s.setAttribute("reservada",false);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(),"/");
 		}
@@ -59,6 +63,7 @@ public class AuthController {
 		try {
 			
 			s.setAttribute("usuario", usuarioService.saveUsuario(usuario));
+			s.setAttribute("reservada",false);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(),"/");
 		}

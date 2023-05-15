@@ -23,8 +23,8 @@ public class EntradaCompradaService {
 	@Autowired
 	private TipoService tipoService;
 	
-	@Autowired
-	private UsuarioService usuarioService;
+	/*@Autowired
+	private UsuarioService usuarioService;*/
 
 	public List<EntradaComprada> getEntradaCompradas() {
 		return entradaCompradaRepository.findAll();
@@ -38,6 +38,7 @@ public class EntradaCompradaService {
 		entradaComprada.setEntrada(entrada);
 		entradaComprada.setTipo(tipo);
 		entradaComprada.setUsuario(usuario);
+		
 		entrada.setNumeroVendido((entrada.getNumeroVendido()+cantidad));
 		try {
 			entradaCompradaRepository.saveAndFlush(entradaComprada);

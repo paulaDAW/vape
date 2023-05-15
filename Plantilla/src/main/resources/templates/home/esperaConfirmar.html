@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="card">
+		<div th:if="${ usuario.activado == null || usuario.activado == false }" class="card-header">
+			<span>Va, te esperamos</span>
+		</div>
+		<div th:if="${ usuario.activado == null || usuario.activado == false }" class="card-body">
+			<span>Revisa tu correo y confirma tu registro</span>
+		</div>
+			<div th:if="${ usuario.activado != null and  usuario.activado == true}" class="card-header">
+			<span>Guay, tu registro se ha completado con éxito</span>
+		</div>
+		<div th:if="${ usuario.activado != null and usuario.activado == true}" class="card-body">
+			<span>Ya puedes iniciar sesion</span><br>
+			<button class="btn btn-primary">Iniciar sesión</button><br>
+			<form action="/">
+				<input type="submit" class="btn btn-secondary" value="Ir al inicio"/>
+			</form>
+		</div>
+	</div>
+</div>

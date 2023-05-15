@@ -18,18 +18,19 @@ public class EntradaService {
 		return entradaRepository.findAll();
 	}
 
-	public void saveEntrada(int numeroMax, int numeroVen, LocalDate fecha) throws Exception {
+	public Entrada saveEntrada(int numeroMax, int numeroVen, LocalDate fecha) throws Exception {
 		Entrada entrada = Entrada.builder()
 				.numeroMaximo(numeroMax)
 				.numeroVendido(numeroVen)
 				.fecha(fecha)
 				.build();
-		
+		Entrada entradaDev = new Entrada();
 		try {
-			entradaRepository.saveAndFlush(entrada);
+			entradaDev = entradaRepository.saveAndFlush(entrada);
 		} catch (Exception e) {
-			throw new Exception("La entrada ya existe");
+			throw new Exception("La entrada ya existe"+e.getLocalizedMessage());
 		}
+		return entradaDev;
 	}
 
 	public Entrada getEntradaById(Long id) {
@@ -57,5 +58,16 @@ public class EntradaService {
 
 	public Entrada getEntradaByFecha(LocalDate fecha) {
 		return entradaRepository.findByFecha(fecha);
+	}
+
+	public void cancelarEntrada(Entrada entrada, int cantidad) throws Exception {
+		// TODO Auto-generated method stub
+		entrada.setNumeroVendido(entrada.getNumeroVendido()-cantidad);
+		
+		try {
+			entradaRepository.saveAndFlush(entrada);
+		} catch (Exception e) {
+			throw new Exception("Error al actualizar stock de entradas");
+		}
 	}
 }

@@ -21,8 +21,8 @@
 		<input id="idEmail" type="text" th:value="${usuario.email}" name="email" required="required"/>
 		<br/>
 		
-		<label for="idTarjeta">Mostrar solo últimos digitos(Que no se ve en el cogido tampoco)</label>
-		<input id="idTarjeta" th:value="${usuario.tarjeta} != null ? ${usuario.tarjeta} : '0000'" type="text" name="tarjeta" required="required"/>
+		<label for="idTarjeta">Tarjeta acabada en</label>
+		<input id="idTarjeta" th:value="${tarjeta}" type="text" name="tarjeta" required="required"/>
 		<br/>
 		
 		<!--Opción para cambiar de contraseña-->
@@ -31,7 +31,7 @@
 		<br />
 	</form>
 
-	<form action="/usuario/r">
+	<form action="/">
 		<input type="submit" value="Cancelar" />
 	</form>
 </div>

@@ -8,7 +8,7 @@ import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.H;
 import org.carlos.spring.Plantilla.helpers.PRG;
 import org.carlos.spring.Plantilla.services.EntradaCompradaService;
-import org.carlos.spring.Plantilla.services.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,9 +25,19 @@ public class PerfilController {
 
 
 	@GetMapping("/perfil")
-	public String r(ModelMap m, HttpSession s) {
+	public String r(ModelMap m, HttpSession s) throws DangerException {
 	
-		m.put("usuario", (Usuario)(s.getAttribute("usuario")));
+		try {
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
+		
+		Usuario usuario = (Usuario)(s.getAttribute("usuario"));
+		String[] numerosTarjeta = usuario.getTarjeta().split(" ");
+		String tarjeta = "**** **** **** "+ numerosTarjeta[numerosTarjeta.length -1];
+		m.put("tarjeta", tarjeta);
+		m.put("usuario", usuario );
 		m.put("view", "perfil/r");
 		return "_t/frame";
 	}

@@ -13,7 +13,7 @@ public class H {
 		//, su rol actual: " + usuario.getRol().getNombre()+"
 		}
 	}
-	
+	/*Puede que sea necesario añadir si el usuario a confirmado el registro o no*/
 	public static void isLogged(Usuario usuario) throws Exception {
 		if(usuario == null || usuario.getRol().getNombre() == "" || usuario.getRol().getNombre() == null) {
 			throw new Exception("Debe de estar registrado para realizar esta acción");

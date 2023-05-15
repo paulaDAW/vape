@@ -4,8 +4,6 @@ package org.carlos.spring.Plantilla.entities;
 import java.time.LocalDate;
 import java.util.Collection;
 
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +27,6 @@ public class Entrada {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true)
 	private int numeroMaximo;
 	
 	private int numeroVendido;
@@ -37,8 +34,7 @@ public class Entrada {
 	private LocalDate fecha;
 	
 	@OneToMany(mappedBy = "entrada")
-	private Collection<EntradaComprada> entradaComprada;
+	private Collection<EntradaComprada> entradasCompradas;
 	
-
 
 }

@@ -2,9 +2,9 @@ package org.carlos.spring.Plantilla.services;
 
 
 
-import java.io.File;
+/*import java.io.File;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.ArrayList;*/
 import java.util.List;
 
 
@@ -14,7 +14,7 @@ import org.carlos.spring.Plantilla.repositories.RolRepository;
 import org.carlos.spring.Plantilla.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
+//import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -64,24 +64,14 @@ public class UsuarioService {
 		/////Usuario usuario = Usuario.builder().nombre(nombre).apellidos(apellidos).fnac(fnac).email(email).loginName(loginName).password(password).build();
 		//Usuario usuario = new Usuario(usuarioDTO);
 		usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
-		
-		
+		usuario.setActivado(false);		
 		Rol rol = rolRepository.findByNombre("Cliente");
 		usuario.setRol(rol);
-		/*
+		
 		 if(usuario.getRol() == null || rol.getId() != usuario.getRol().getId() ) {
 			Rol nuevoRol = rolService.saveRol("Cliente");
 			usuario.setRol(nuevoRol);
 		}
-		*/
-		/*
-		//SObra
-		if ( entrada.getHorario()== null || idHorario != entrada.getHorario().getId() )  {
-			Horario nuevoHorario= horarioRepository.getById(idHorario);
-			entrada.setHorario(nuevoHorario);
-		}
-		*/
-		
 		
 		
 		try {
@@ -161,7 +151,10 @@ public class UsuarioService {
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(mensaje,true);
 			String texto = "Bienvenido al museo. Ve al siguiente enlace para confirmar tu registro.";
-			String html = "<a href='localhost/confirmar/registro' class='btn btn-info'>Confirmar</a>";
+			String html = "<div class='container'>Bienvenido. Solo un pasito más. Accede al siguiente"
+					+" enlace para confirmar tu registro <br>"
+					+ "<form action='http://localhost:8080/confirmar/registro' method='post'>"+
+					" <input type='submit' value='Confirmar Registro'/> </form></div>";
 			helper.setFrom(email);
 			helper.setTo(emailTo);
 			helper.setSubject("Museo VAPE Confirmación de correo electrónico");
@@ -170,5 +163,17 @@ public class UsuarioService {
 		} catch (Exception e) {
 			throw new Exception("Ha ocurrido un error al registrarte.");
 		}
+	}
+
+	public Usuario activarUsuario(String email) throws Exception {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		usuario.setActivado(true);
+		Usuario usuarioDevuelto = new Usuario();
+		try {
+			usuarioDevuelto = usuarioRepository.saveAndFlush(usuario);
+		}catch (Exception e){
+			throw new Exception("Este usuario no está registrado");
+		}
+		return usuarioDevuelto;
 	}
 }

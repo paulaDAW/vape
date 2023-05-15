@@ -2,7 +2,6 @@ package org.carlos.spring.Plantilla.dto;
 
 import java.time.LocalDate;
 
-import org.carlos.spring.Plantilla.entities.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

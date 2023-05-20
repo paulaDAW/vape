@@ -9,6 +9,7 @@ import org.carlos.spring.Plantilla.entities.EntradaComprada;
 import org.carlos.spring.Plantilla.entities.Usuario;
 import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.PRG;
+import org.carlos.spring.Plantilla.helpers.QR;
 import org.carlos.spring.Plantilla.services.EntradaCompradaService;
 
 
@@ -43,6 +44,8 @@ public class CompraController {
 	
 	@Autowired
 	private EntradaCompradaService entradaCompradaService;
+	
+	private final String imagePath ="./src/main/resources/static/qr/QRCode";
 
 	@GetMapping("r")
 	public String r(ModelMap m) {
@@ -87,6 +90,17 @@ public class CompraController {
 				entradaCompradaService.deleteEntradaComprada(idEntrada);
 				throw new Exception("Ha habido un error al registrar su compra.\n Reinténtalo");
 			}
+			//Generar qr y guardarlo en la entrada
+			String cadenaqr = entradaComprada.getCantidad()+" Entradas para el dia "
+			+ entradaComprada.getEntrada().getFecha() + "\n"
+			+usuario.getNombre() +" "+ usuario.getApellido1()
+			+(usuario.getApellido2() != null ? usuario.getApellido2():"")+"\n"
+					+ "Fecha de compra" + entradaComprada.getFechaCompra();
+			String rutaCompleta = (imagePath + entradaComprada.getId() + ".png");
+			QR.generateImageQRCode(cadenaqr, 250, 250, rutaCompleta );
+			entradaCompradaService.updateRuta(rutaCompleta.replace("./src/main/resources/static","") , entradaComprada);
+			
+			
 			usuarioService.confirmacionCompra(usuario.getEmail());
 
 		}catch(Exception e){

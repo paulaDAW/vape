@@ -40,6 +40,8 @@ public class EntradaComprada {
 	
 	private int cantidad;
 	
+	private String rutaImagenQR;
+	
 	//ManyToMany
 
 }

@@ -71,5 +71,14 @@ public class EntradaCompradaService {
 
 		return entradaCompradaRepository.findByUsuario(usuario);
 	}
+
+	public void updateRuta(String rutaCompleta, EntradaComprada entradaComprada) throws Exception {
+		entradaComprada.setRutaImagenQR(rutaCompleta);
+		try {
+			entradaCompradaRepository.saveAndFlush(entradaComprada);
+		}catch(Exception e) {
+			throw new Exception("Error durante la compra");
+		}
+	}
 }
 

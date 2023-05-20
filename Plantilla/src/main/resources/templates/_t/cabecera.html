@@ -1,6 +1,7 @@
 
 <nav class="m-0 navbar sticky-top container  bg-dark navbar-dark">
 	
+	
 	<div class="col justify-content-around">
 		<div class="row">
 			<div class="col-auto mr-auto ">	
@@ -11,12 +12,24 @@
 			
 			<div class="col"></div>
 			
-			<div th:if="${session.usuario==null}" class="col-auto m-2">
+			<div th:if="${session.usuario==null || session.usuario.activado == false}" class="col-auto m-2">
 				<a class="btn btn-info btn-sm" href="/login" role="button"> Iniciar sesión </a>
 			</div>
 			
-			<div th:if="${session.usuario==null}" class="col-auto m-2">
+			<div th:if="${session.usuario==null || session.usuario.activado == false}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/register" role="button"> Registrarse </a>
+			</div>
+			
+			
+			<div class="dropdown col-auto m-2" th:if="${session.usuario != null and session.usuario.rol.nombre eq 'admin'}">
+  				<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+    				Administrar
+  				</button>
+		  		<ul class="dropdown-menu dropdown-menu-dark " aria-labelledby="dropdownMenuButton2">
+    				<li><a class="dropdown-item" href="/entrada/r" >Gestionar entradas</a></li>
+    				<li><a class="dropdown-item" href="/tipo/r">Gestionar tipos</a></li>
+    				<li><a class="dropdown-item" href="/rol/r">Administrar roles</a></li>
+				</ul>
 			</div>
 			
 			<!--<div  class="col-auto m-2">
@@ -25,7 +38,7 @@
 				</a>
 			</div>-->
 			
-			<div th:if="${session.usuario != null and session.usuario.rol.nombre eq 'admin'}" class="col-auto m-2">
+			<!--<div th:if="${session.usuario != null and session.usuario.rol.nombre eq 'admin'}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/entrada/r"
 				 th:text="|Gestionar entradas |" role="button">
 				</a>
@@ -41,17 +54,17 @@
 				<a class="btn btn-primary btn-sm" href="/tipo/r"
 				 th:text="|Gestionar tipos |" role="button">
 				</a>
-			</div>
+			</div>-->
 			
-			<div th:if="${session.usuario!=null}" class="col-auto m-2">
+			<div th:if="${session.usuario!=null and session.usuario.activado == true}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/misentradas" th:text="|Mis entradas|" role="button"></a>
 			</div>
 			
-			<div th:if="${session.usuario!=null}" class="col-auto m-2">
+			<div th:if="${session.usuario!=null and session.usuario.activado == true}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/perfil" th:text="${session.usuario.nombre}" role="button"></a>
 				<!--<span  th:text="|Hola    ${session.usuario.nombre}|"/>-->
 			</div>
-			<div th:if="${session.usuario!=null}" class="col-auto m-2">
+			<div th:if="${session.usuario!=null and session.usuario.activado == true}" class="col-auto m-2">
 				<a class="btn btn-danger btn-sm" href="/logout" role="button"> Cerrar sesión </a>
 			</div>
 		</div>

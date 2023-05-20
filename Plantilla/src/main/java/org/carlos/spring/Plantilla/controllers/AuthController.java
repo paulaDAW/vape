@@ -58,16 +58,52 @@ public class AuthController {
 	@PostMapping("/register")
 	public String registerPost(
 			@ModelAttribute Usuario usuario,
-			HttpSession s
-			) throws DangerException {
+			@RequestParam("passwordConf") String confirmPass,
+			HttpSession s,
+			ModelMap m
+			) throws Exception {
+		//Primero comprobar las pass
 		try {
+			if(!confirmPass.trim().toString().equals(usuario.getPassword().trim().toString())) {
+				throw new Exception("La contrasaña no coincide");
+			}
+		}catch(Exception e) {
+			PRG.error(e.getMessage(),"/register");
+		}
+		
+		//Si son iguales guarda el usuario
+		Usuario usuarioGuardado = new Usuario();
+		try {
+			usuarioGuardado = usuarioService.saveUsuario(usuario);
 			
-			s.setAttribute("usuario", usuarioService.saveUsuario(usuario));
-			s.setAttribute("reservada",false);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(),"/");
 		}
-		return "redirect:/";
+		//Guarda el usuario en la sesion
+		s.setAttribute("usuario", usuarioGuardado);
+		System.out.println(usuarioGuardado.getEmail());
+		s.setAttribute("reservada",false);
+		//Le envía el correo de confirmación
+		usuarioService.envioConfirmarRegistro(usuarioGuardado.getEmail());
+		m.put("usuario", usuarioGuardado);
+		m.put("view", "home/esperaConfirmar");
+		return "_t/frame";
+		
+	}
+	
+	@PostMapping("/confirmar/registro")
+	public String listo(
+			ModelMap m,
+			HttpSession s
+			) throws Exception {
+		Usuario usuario = (Usuario)s.getAttribute("usuario");
+		System.out.println(usuario.getEmail());
+		//System.out.println(usuario.isActivado());
+		Usuario usuarioActivo = usuarioService.activarUsuario(usuario.getEmail());
+		s.setAttribute("usuario", usuarioActivo);
+		m.put("usuario", usuario);
+		m.put("view", "home/esperaConfirmar");//Misma vista, pero comprobar dato activo
+		return "_t/frame";
 	}
 	
 	@GetMapping("/logout")

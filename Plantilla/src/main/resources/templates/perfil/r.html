@@ -16,6 +16,10 @@
 				</p>
 			  	<input type="submit" value="Cambiar datos" class="btn btn-sm btn-primary"/>
 			</form>
+			<form action="/perfil/cambiarPassword">
+				<input type="hidden" name="idU" th:value="${usuario.id}"/>
+				<input type="submit" class="btn btn-danger" value="Cambiar pass"/>
+			</form>
   		</div>
   		<div class="card-footer text-muted">
     		<form action="/">

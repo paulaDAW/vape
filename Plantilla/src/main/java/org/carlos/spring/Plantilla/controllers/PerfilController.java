@@ -8,12 +8,13 @@ import org.carlos.spring.Plantilla.exception.DangerException;
 import org.carlos.spring.Plantilla.helpers.H;
 import org.carlos.spring.Plantilla.helpers.PRG;
 import org.carlos.spring.Plantilla.services.EntradaCompradaService;
-
+import org.carlos.spring.Plantilla.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,7 +23,11 @@ public class PerfilController {
 	
 	@Autowired
 	private EntradaCompradaService entradaCompradaService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
+	
 
 	@GetMapping("/perfil")
 	public String r(ModelMap m, HttpSession s) throws DangerException {
@@ -42,6 +47,18 @@ public class PerfilController {
 		return "_t/frame";
 	}
 	
+	/*@GetMapping("/qr")
+	public String getQRcode(ModelMap m) {
+		String urlGo="https://www.google.es";
+		byte[] image = new byte[0];
+		try {
+			image = QRCodeGenerator.getQRCodeImage(urlGo,250,250);
+		}catch (Exception e) {
+			
+		}
+		return "_t/frame";
+	}
+	*/
 	@GetMapping("/misentradas")
 	public String rEntradas(ModelMap m, HttpSession s) throws DangerException {
 		try {
@@ -60,5 +77,46 @@ public class PerfilController {
 	}
 	
 
+	@GetMapping("/perfil/cambiarPassword")
+	public String cambioPass(ModelMap m,
+			@RequestParam("idU")Long id,
+			HttpSession s
+	) throws DangerException {
+		try {
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
+		m.put("id", id);
+		m.put("view", "/perfil/cambiarPassword");
+		return "_t/frame";
+	}
+	
+	@PostMapping("/perfil/cambiarPassword")
+	public String cambioPassPost(
+			ModelMap m,
+			@RequestParam("id")Long id,
+			@RequestParam("nuevaPass")String nuevaPass,
+			@RequestParam("nuevaPassConfirmar")String nuevaPassConfirmar,
+			HttpSession s
+			) throws Exception {
+		try {
+			H.isLogged((Usuario)(s.getAttribute("usuario")));
+		}catch(Exception e){
+			PRG.error(e.getMessage(),"/login");
+		}
+		try {
+			if(!nuevaPass.equals(nuevaPassConfirmar)) {
+				throw new Exception("Las contraseñas no coinciden. Intentalo de nuevo");
+			}
+		}catch (Exception e) {
+			PRG.error(e.getMessage(),"/" );
+		}
+		Usuario nuevoUsuario = usuarioService.updatePass(id, nuevaPass);
+		s.setAttribute("usuario", nuevoUsuario);
+		m.put("usuario", nuevoUsuario);
+		m.put("view", "/perfil/r");
+		return "_t/frame";
+	}
 }
 

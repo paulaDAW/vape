@@ -73,14 +73,14 @@ public class UsuarioService {
 			usuario.setRol(nuevoRol);
 		}
 		
-		
+		Usuario userSaved = new Usuario();
 		try {
-			usuarioRepository.saveAndFlush(usuario);
+			userSaved = usuarioRepository.saveAndFlush(usuario);
 			//usuario = usuarioRepository.saveAndFlush(usuario);
 		} catch (Exception e) {
 			throw new Exception("El email " + usuario.getEmail() + " ya se ha sido registrado");
 		}
-		return usuario;
+		return userSaved;
 	}
 
 	public Usuario getUsuarioById(Long id) {
@@ -175,5 +175,18 @@ public class UsuarioService {
 			throw new Exception("Este usuario no está registrado");
 		}
 		return usuarioDevuelto;
+	}
+
+	public Usuario updatePass(Long id, String nuevaPass) throws Exception {
+		// TODO Auto-generated method stub
+		Usuario usuario = usuarioRepository.findById(id).get();
+		usuario.setPassword(new BCryptPasswordEncoder().encode(nuevaPass));//Encriptar y enviar a BBDD
+		Usuario userPassSaved = new Usuario();
+		try {
+			userPassSaved = usuarioRepository.saveAndFlush(usuario);
+		}catch(Exception e) {
+			throw new Exception("Lo sentimos, no se pudo guardar tu nueva contraseña");
+		}
+		return userPassSaved;
 	}
 }

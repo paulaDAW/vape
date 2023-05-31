@@ -1,4 +1,103 @@
 <div class="container">
+	<div class="card w-100 m-auto mt-2">
+		<div class="card-header text-center">
+			Registro de usuario
+		</div>
+
+		<div class="card-body">
+			<h5 class="card-title text-center">Rellena los campos</h5>
+			<form action="/register" method="post">
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-1">
+						<label for="idNombre" class="col-form-label">Nombre</label>
+					</div>
+					<div class="col-5">
+						<input type="text" id="idNombre" class="form-control" name="nombre" required="required"
+							autofocus="autofocus" />
+					</div>
+					<br>
+					<div class="col-1">
+						<label for="idApellidos" class="col-form-label">Primer apellido</label>
+					</div>
+					<div class="col-5">
+						<input type="text" id="idApellidos" class="form-control" name="apellido1" required="required" />
+					</div>
+				</div>
+				<br>
+
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-1">
+						<label for="idApellido2" class="col-form-label">Segundo apellido</label>
+					</div>
+					<div class="col-5">
+						<input type="text" id="idApellido2" class="form-control" name="apellido2" required="required" />
+					</div>
+					<br>
+					<div class="col-1">
+						<label for="idTarjeta" class="col-form-label">Numero de Tarjeta</label>
+					</div>
+					<div class="col-5">
+						<input type="text" id="idTarjeta" class="form-control" name="tarjeta" required="required" />
+					</div>
+				</div>
+				<br>
+
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-1">
+						<label for="idEmail" class="col-form-label">Email</label>
+					</div>
+					<div class="col-5">
+						<input id="idEmail" type="text" name="email" class="form-control" required="required" />
+					</div>
+					<br>
+					<div class="col-1">
+						<label for="id-pass" class="col-form-label">Contraseña</label>
+					</div>
+					<div class="col-5">
+						<input type="password" name="password" id="id-pass" class="form-control"
+							aria-describedby="passwordHelpInline">
+					</div>
+				</div>
+				<br>
+
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-6"></div>
+					<div class="col-1">
+						<label for="id-passConf" class="col-form-label">Confirmar contraseña</label>
+					</div>
+					<div class="col-5">
+						<input type="password" name="passwordConf" id="id-passConf" class="form-control"
+							aria-describedby="passwordHelpInline">
+					</div>
+				</div>
+				<br>
+
+				<div class="text-center">
+					<button class="btn btn-primary btn-sm" onclick="submit()">Entrar</button>
+				</div>
+			</form>
+
+		</div>
+		<div class="card-footer text-muted text-center">
+			<form action="/">
+				<button class="btn btn-secondary btn-sm">Volver</button>
+			</form>
+		</div>
+	</div>
+
+
+	<!--
+			Que solo lo vea el super admin
+			<select name="idRol">
+				<th:block th:each=" rol : ${roles}">
+					<option th:value="${rol.id}" th:text="${rol.nombre}"></option>
+				</th:block>
+			</select>
+			<br>
+			-->
+</div>
+
+<!--<div class="container">
 	<div class="card w-50 m-auto mt-2">
   			<div class="card-header text-center">
     			Registro de usuario
@@ -105,5 +204,4 @@
 				</th:block>
 			</select>
 			<br>
-			-->
-</div>
+</div>-->

@@ -1,34 +1,47 @@
 <div class="container">
-	<div class="card">	
+	<div class="card">
 		<div class="card-title text-center bg-warning">
 			Mis entradas
 		</div>
-		<div class="card-body m-auto">
-			<div class="card" th:if="${entradas.size() == 0}">
-				<span>Aún no has comprado ninguna entrada</span>
+		<div class="card-body m-auto text-center w-50">
+			<div class="text-center" th:if="${entradas.size() == 0}">
+				<h5>Esto está muy vacío...</h5>
+				<span>¡Compra tus entradas aquí!</span>
+				<br />
+				<a href="/comprar/r" class="btn m-2 btn-primary">
+					<img src="/img/ticket-solid.svg" alt="Ticket" style="width:40px;">&nbsp&nbspComprar entradas
+				</a>
 			</div>
 			<div th:each=" entradaComprada : ${entradas}" class="card border-6 w-100 p-4">
-				<div class="row">
-					<div class="col-3">
-						<span th:text="${entradaComprada.entrada.fecha}"/>
-					</div>
-					<div class="col-3">
-						<span th:text="${entradaComprada.tipo.nombre}"/>
-					</div>
-					<div class="col-3">
-						<span th:text="${entradaComprada.cantidad}"/>
-					</div>
-					<div class="col-3">
-						<span th:text="|(${entradaComprada.tipo.precio})* ${entradaComprada.cantidad}|"/>
-					</div>
-				</div>
+				<ul class="nav justify-content-center border-bottom">
+					<li class="nav-item">
+						<span th:text="|Fecha: ${entradaComprada.entrada.fecha}|" />
+					</li>
+					&nbsp&nbsp
+					<li class="nav-item">
+						<span th:text="|Tipo de entrada: ${entradaComprada.tipo.nombre}|" />
+					</li>
+					&nbsp&nbsp
+					<li class="nav-item">
+						<span th:text="|Nº de entradas: ${entradaComprada.cantidad}|" />
+					</li>
+					&nbsp&nbsp
+					<li class="nav-item">
+						<span th:text="|Precio: (${entradaComprada.tipo.precio})* ${entradaComprada.cantidad}|" />
+					</li>
+				</ul>
 				<div class="row">
 					<div class="col">
-						<img th:src="@{${entradaComprada.rutaImagenQR}}" alt="qr" width="200"/>
+						<img th:src="@{${entradaComprada.rutaImagenQR}}" alt="qr" width="200" />
 					</div>
 				</div>
 			</div>
 			<br>
+			<span>¡Compra más entradas aquí!</span>
+			<br />
+			<a href="/comprar/r" class="btn m-2 btn-primary">
+				<img src="/img/ticket-solid.svg" alt="Ticket" style="width:40px;">&nbsp&nbspComprar entradas
+			</a>
 		</div>
 	</div>
 </div>

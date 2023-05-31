@@ -13,16 +13,16 @@
 			<div class="col"></div>
 			
 			<div th:if="${session.usuario==null || session.usuario.activado == false}" class="col-auto m-2">
-				<a class="btn btn-info btn-sm" href="/login" role="button"> Iniciar sesión </a>
+				<a class="btn btn-outline-info btn-sm me-2" href="/login" role="button"> Iniciar sesión </a>
 			</div>
 			
 			<div th:if="${session.usuario==null || session.usuario.activado == false}" class="col-auto m-2">
-				<a class="btn btn-primary btn-sm" href="/register" role="button"> Registrarse </a>
+				<a class="btn btn-warning btn-sm me-2" href="/register" role="button"> Registrarse </a>
 			</div>
 			
 			
 			<div class="dropdown col-auto m-2" th:if="${session.usuario != null and session.usuario.rol.nombre eq 'admin'}">
-  				<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+  				<button class="btn btn-sm btn-outline-secondary dropdown-toggle me-2" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
     				Administrar
   				</button>
 		  		<ul class="dropdown-menu dropdown-menu-dark " aria-labelledby="dropdownMenuButton2">
@@ -57,15 +57,15 @@
 			</div>-->
 			
 			<div th:if="${session.usuario!=null and session.usuario.activado == true}" class="col-auto m-2">
-				<a class="btn btn-primary btn-sm" href="/misentradas" th:text="|Mis entradas|" role="button"></a>
+				<a class="btn btn-primary btn-sm me-2" href="/misentradas" th:text="|Mis entradas|" role="button"></a>
 			</div>
 			
 			<div th:if="${session.usuario!=null and session.usuario.activado == true}" class="col-auto m-2">
-				<a class="btn btn-primary btn-sm" href="/perfil" th:text="${session.usuario.nombre}" role="button"></a>
+				<a class="btn btn-primary btn-sm me-2" href="/perfil" th:text="${session.usuario.nombre}" role="button"></a>
 				<!--<span  th:text="|Hola    ${session.usuario.nombre}|"/>-->
 			</div>
 			<div th:if="${session.usuario!=null and session.usuario.activado == true}" class="col-auto m-2">
-				<a class="btn btn-danger btn-sm" href="/logout" role="button"> Cerrar sesión </a>
+				<a class="btn btn-outline-danger btn-sm me-2" href="/logout" role="button"> Cerrar sesión </a>
 			</div>
 		</div>
 	</div>

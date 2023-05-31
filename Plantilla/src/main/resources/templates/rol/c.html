@@ -1,16 +1,33 @@
-
-<div class="container">
-<h1>Crear rol</h1>
-<form action="/rol/c" method="post">
-Nombre
-<input type="text" name="nombre" required="required" autofocus="autofocus"/>
-<br/>
-
-<input type="submit"/>
-<br/>
-</form>
-
-<form action="/rol/r">
-<input type="submit" value="Cancelar"/>
-</form>
-</div>
+<nav class="navbar navbar-inverse navbar-fixed-top bg-dark">
+	<div class="container">
+		<div class="card w-50 m-auto mt-2">
+			<div class="card-header text-center">
+				<h1>Crear rol</h1>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title text-center">Rellena los campos</h5>
+				<form action="/rol/c" method="post">
+					<div class="row g-2 justify-content-center align-items-center">
+						<div class="col-3">
+							<label for="id-Nombre">Nombre</label>
+						</div>
+						<div class="col-1"></div>
+                        <div class="col-4">
+                        	<input type="text" id="id-Nombre" name="nombre" class="form-control" required="required" autofocus="autofocus"/>
+                        </div>
+					</div>
+					<br/>
+						<div class="text-center">
+							<button class="btn btn-primary btn-sm" onclick="submit()">Añadir Rol</button>
+						</div>						
+				</form>
+			</div>
+			<br/>
+			<div class="card-footer text-muted text-center">
+				<form action="/rol/r">
+					<button class="btn btn-danger btn-sm">Cancelar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</nav>

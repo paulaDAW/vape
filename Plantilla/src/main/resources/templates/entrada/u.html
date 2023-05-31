@@ -1,27 +1,54 @@
-<div class="container">
-	<h1>Actualizar entrada</h1>
-	<form action="/entrada/u" method="post">
-		<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>
+<nav class="navbar navbar-inverse navbar-fixed-top bg-dark">
+	<div class="container">
+		<div class="card w-50 m-auto mt-2">
+			<div class="card-header text-center">
+				<h1>Actualizar entrada</h1>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title text-center">Rellena los campos</h5>
+				<form action="/entrada/u" method="post">
+					<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>
+					<div class="row g-2 justify-content-center align-items-center">
+						<div class="col-3">
+							<label id="id-numeroMax">Número maximo</label>
+						</div>
+						<div class="col-1"></div>
+                        <div class="col-4">
+							<input type="text" id="id-numeroMax" th:value="${entrada.numeroMaximo}" class="form-control" name="numeroMax" required="required" autofocus="autofocus" />
+                        </div>
+					</div>
+					<div class="row g-2 justify-content-center align-items-center">
+						<div class="col-3">
+							<label id="id-numeroVen">Número entradas vendidas</label>
+						</div>
+						<div class="col-1"></div>
+                        <div class="col-4">
+							<input type="text" id="id-numeroVen" th:value="${entrada.numeroVendido}" class="form-control" name="numeroVen" required="required" />
+                        </div>
+					</div>
+					<div class="row g-2 justify-content-center align-items-center">
+						<div class="col-3">
+							<!--Poner un calendario? Mirar para automatizar para dos meses mínimo, con seeder?-->
 		
-		<label id="id-numeroMax">Número máximo de entradas a la venta</label>
-		<input type="text" id="id-numeroMax" th:value="${entrada.numeroMaximo}" name="numeroMax" required="required" autofocus="autofocus" />
-		<br />
-		
-		<label id="id-numeroVen">Número entradas vendidas</label>
-		<input type="text" id="id-numeroVen" th:value="${entrada.numeroVendido}" name="numeroVen" required="required" />
-		<br />
-		
-		<label id="id-fecha">fecha</label>
-		<input type="date" id="id-fecha" name="fecha" th:value="${entrada.fecha}"/>
-		
-		<br />
-		
-		<input type="submit"/ value="Actualizar entrada">
-		
-	</form>
-	
-		
-	<form action="/entrada/r">
-		<input type="submit" value="Cancelar" />
-	</form>
-</div>
+							<label for="id-fecha">Fecha de la entrada</label>
+						</div>
+						<div class="col-1"></div>
+                        <div class="col-4">
+							<input type="date" id="id-fecha" class="form-control" name="fecha" th:value="${entrada.fecha}"/>
+                        </div>
+					</div>
+					<br/>
+						<div class="text-center">
+							<button class="btn btn-primary btn-sm" onclick="submit()">Actualizar Entrada</button>
+						</div>						
+				</form>
+			</div>
+			<br/>
+			<div class="card-footer text-muted text-center">
+				<form action="/entrada/r">
+					<button class="btn btn-danger btn-sm">Cancelar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</nav>

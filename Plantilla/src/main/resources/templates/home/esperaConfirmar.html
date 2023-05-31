@@ -1,15 +1,15 @@
 <div class="container">
 	<div class="card">
-		<div th:if="${ usuario.activado == null and usuario.activado == 0 }" class="card-header">
+		<div th:if="${ usuario.enabled eq null || usuario.enabled eq false }" class="card-header">
 			<span>Va, te esperamos</span>
 		</div>
-		<div th:if="${ usuario.activado == null and usuario.activado == 0 }" class="card-body">
+		<div th:if="${ usuario.enabled eq null || usuario.enabled eq false }" class="card-body">
 			<span>Revisa tu correo y confirma tu registro</span>
 		</div>
-			<div th:if="${ usuario.activado != null and  usuario.activado == 1}" class="card-header">
+			<div th:if="${ usuario.enabled != null and usuario.enabled eq true}" class="card-header">
 			<span>Guay, tu registro se ha completado con éxito</span>
 		</div>
-		<div th:if="${ usuario.activado != null and usuario.activado == 1}" class="card-body">
+		<div th:if="${ usuario.enabled != null and usuario.enabled eq true}" class="card-body">
 			<span>Ya puedes iniciar sesion</span><br>
 			<button class="btn btn-primary">Iniciar sesión</button><br>
 			<form action="/">

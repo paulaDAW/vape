@@ -13,14 +13,14 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.2</version>
+		<version>3.0.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.carlos.spring.Plantilla</groupId>
-	<artifactId>pap2023</artifactId>
+	<groupId>org.tfg.spring.Vape</groupId>
+	<artifactId>vape</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Pap2023</name>
-	<description>Primer Pap con SpringBoot</description>
+	<name>Vape2023</name>
+	<description>Museo VAPE</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -56,7 +56,7 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>3.0.2</version>
+
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -79,9 +79,53 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd
     		<artifactId>javase</artifactId>
     		<version>3.4.0</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+    		<version>6.0.10.Final</version>
+		</dependency>
+		
+		<!--
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>com.google.guava</groupId>
+    		<artifactId>guava</artifactId>
+    		<version>23.0</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+			<!-- Temporary explicit version to fix Thymeleaf bug -->
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
+ 
+<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <property name="basename" value="classpath:resourcebundles/messages" />
+    <property name="useCodeAsDefaultMessage" value="true" />
+</bean>
+
+<authentication-manager>
+    <authentication-provider ref="authProvider" />
+</authentication-manager>
 
 	<build>
+		
+		
+		
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -89,5 +133,12 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd
 			</plugin>
 		</plugins>
 	</build>
-
+	
+	<!--
+	<authentication-manager>
+    	<authentication-provider user-service-ref="userDetailsService" />
+	</authentication-manager>
+ 
+	<beans:bean id="userDetailsService" class="org.tfg.spring.Vape.services.MyUserDetailsService" />
+	-->
 </project>

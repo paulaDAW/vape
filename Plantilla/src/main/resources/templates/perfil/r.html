@@ -6,13 +6,12 @@
   		<div class="card-body">
 			<form action="/usuario/u">
 				<input type="hidden" name="id" th:value="${usuario.id}"/>
-				<h5 class="card-title" th:text="${usuario.nombre}|"></h5>
+				<h5 class="card-title" th:text="${usuario.name}|"></h5>
 				<p class="card-text">
-					<label th:text="|Nombre: ${usuario.nombre}|"></label><br>
-					<label th:text="|Primer apellido: ${usuario.apellido1}|"></label><br>
-					<label th:text="|Segundo apellido: ${usuario.apellido2}|"></label><br>
-					<label th:text="|Email: ${usuario.email}|"></label><br>
-					<label th:text="|Tarjeta: ${tarjeta}|"></label><br>
+					<label th:text="|Nombre: ${usuario.name}|"></label><br>
+					<label th:text="|Primer apellido: ${usuario.primerApellido}|"></label><br>
+					<label th:text="|Segundo apellido: ${usuario.segundoApellido}|"></label><br>
+					<label th:text="|Email: ${usuario.mail}|"></label><br>
 				</p>
 			  	<input type="submit" value="Cambiar datos" class="btn btn-sm btn-primary"/>
 			</form>

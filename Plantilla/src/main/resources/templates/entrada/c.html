@@ -1,24 +1,44 @@
-<div class="container">
-	<h1>Crear nueva entrada</h1>
-	<form action="/entrada/c" method="post">
+<nav class="navbar navbar-inverse navbar-fixed-top bg-dark">
+	<div class="container">
+		<div class="card w-50 m-auto mt-2">
+			<div class="card-header text-center">
+				<h1>Crear nueva entrada</h1>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title text-center">Rellena los campos</h5>
+				<form action="/entrada/c" method="post">
+					<div class="row g-2 justify-content-center align-items-center">
+						<div class="col-3">
+							<label id="id-numeroMax">Numero maximo</label>
+						</div>
+						<div class="col-1"></div>
+                        <div class="col-4">
+                        	<input type="text" id="id-numeroMax" name="numeroMax" class="form-control" required="required" autofocus="autofocus" />
+                        </div>
+					</div>
+					<div class="row g-2 justify-content-center align-items-center">
+						<div class="col-3">
+							<!--Poner un calendario? Mirar para automatizar para dos meses mínimo, con seeder?-->
 		
-		<label id="id-numeroMax">Numero maximo</label>
-		<input type="text" id="id-numeroMax" name="numeroMax" required="required" autofocus="autofocus" />
-		<br />
-		
-		<!--Poner un calendario? Mirar para automatizar para dos meses mínimo, con seeder?-->
-		
-		<label for="id-fecha">Fecha de la entrada</label>
-		<input type="date" id="id-fecha" name="fecha" required="required" />
-		
-		<br />
-		
-		<input type="submit"/ value="Añadir entrada">
-		
-	</form>
-	
-		
-	<form action="/entrada/r">
-		<input type="submit" value="Cancelar" />
-	</form>
-</div>
+							<label for="id-fecha">Fecha de la entrada</label>
+						</div>
+						<div class="col-1"></div>
+                        <div class="col-4">
+                        	<input type="date" id="id-fecha" name="fecha" class="form-control" required="required" />
+                        </div>
+					</div>
+					<br/>
+						<div class="text-center">
+							<button class="btn btn-primary btn-sm" onclick="submit()">Añadir Entrada</button>
+						</div>						
+				</form>
+			</div>
+			<br/>
+			<div class="card-footer text-muted text-center">
+				<form action="/entrada/r">
+					<button class="btn btn-danger btn-sm">Cancelar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</nav>

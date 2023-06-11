@@ -5,15 +5,21 @@
 		</div>
 		<div th:if="${ usuario.enabled eq null || usuario.enabled eq false }" class="card-body">
 			<span>Revisa tu correo y confirma tu registro</span>
+			<br/>
+			<!--<img class="card-img-top" src="/img/correo-email.gif" alt="imagen_correo" width="40px">-->
+			<!--<div class="tenor-gif-embed" data-postid="18615630" data-share-method="host" data-aspect-ratio="1.33333" data-width="100%"><a href="https://tenor.com/view/correo-email-gif-18615630">Correo Email GIF</a>from <a href="https://tenor.com/search/correo-gifs">Correo GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>-->
 		</div>
 			<div th:if="${ usuario.enabled != null and usuario.enabled eq true}" class="card-header">
 			<span>Guay, tu registro se ha completado con éxito</span>
 		</div>
 		<div th:if="${ usuario.enabled != null and usuario.enabled eq true}" class="card-body">
 			<span>Ya puedes iniciar sesion</span><br>
-			<button class="btn btn-primary">Iniciar sesión</button><br>
+			<form action="/login">
+				<button class="btn btn-primary btn-sm">Iniciar sesión</button><br>
+			</form>
+			<br/>
 			<form action="/">
-				<input type="submit" class="btn btn-secondary" value="Ir al inicio"/>
+				<input type="submit" class="btn btn-secondary btn-sm" value="Ir al inicio"/>
 			</form>
 		</div>
 	</div>

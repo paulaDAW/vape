@@ -1,0 +1,103 @@
+<div class="container">
+
+	<div class="card m-auto mt-2 w-100 ">
+		<div class="card-header text-center">
+			¡Quiero exponer!
+		</div>
+
+		<div class="card-body m-50">
+
+			<p class="lead text-center">¿Creas arte y te gustaría que el mundo lo supiese? Aquí te damos la oportunidad
+				para ello.
+				<br />¡Expón con nosotros y deja que la gente sepa sobre tí!
+			</p>
+			<h4>Completa el fomulario y hablaremos contigo en más detalle</h4>
+			<p style="font-size: 0.8em;">(Te enviaremos un correo para que sepas que tu información nos ha llegado)</p>
+
+			<form action="/quiero_exponer" method="POST" enctype="utf8" id="formExponer">
+
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-2"></div>
+					<div class="col-1">
+						<label for="idNombre" class="col-form-label">Nombre</label>
+					</div>
+					<div class="col-3">
+						<input name="nombre" id="idNombre" required="required" class="form-control"
+							autofocus="autofocus" style="width: 75%;" />
+					</div>
+					<br>
+
+					<div class="col-1">
+						<label for="idApellido1" class="col-form-label">Primer apellido</label>
+					</div>
+					<div class="col-3">
+						<input name="apellido1" id="idApellido1" required="required" class="form-control"
+							style="width: 75%;" />
+					</div>
+					<div class="col-2"></div>
+				</div>
+				<br>
+
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-2"></div>
+					<div class="col-1">
+						<label for="idApellido2" class="col-form-label">Segundo apellido</label>
+					</div>
+					<div class="col-3">
+						<input name="apellido2" id="idApellido2" class="form-control" style="width: 75%;" />
+					</div>
+					<br>
+
+					<div class="col-1">
+						<label for="idDni" class="col-form-label">DNI</label>
+					</div>
+					<div class="col-3">
+						<input name="dni" id="idDni" required="required" class="form-control" style="width: 75%;" />
+					</div>
+					<div class="col-2"></div>
+				</div>
+				<br />
+
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-2"></div>
+					<div class="col-1">
+						<label for="idEmail" class="col-form-label">Email</label>
+					</div>
+					<div class="col-3">
+						<input name="email" id="idEmail" class="form-control" style="width: 75%;" />
+					</div>
+					<br>
+
+					<div class="col-1"></div>
+					<div class="col-3"></div>
+					<div class="col-2"></div>
+				</div>
+
+				<br />
+				<div class="row g-2 justify-content-center align-items-center text-center">
+					<div class="col-2"></div>
+					<div class="col-8">
+						<label for="idComentario">¿Qué te gustaría exponer? Añade tus redes sociales</label>
+						<textarea class="form-control" id="idComentario" required="required"></textarea>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				<br/>
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary btn-sm">Enviar</button>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+	<!--		
+		<div class="card-footer text-muted" style="text-align: right;">
+			<form action="/">
+				<button class="btn btn-secondary btn-sm">Volver al home</button>
+			</form>
+		</div>
+		-->
+</div>
+	<!--Validaciones-->
+	<script type="text/javascript" src="/js/validaciones/exponer.js"></script>

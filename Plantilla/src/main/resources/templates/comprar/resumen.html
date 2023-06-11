@@ -5,32 +5,211 @@
 		</div>
 		<div class="card-body">
 			<div class="card">
-				<span th:text="|Entrada: ${entrada.tipo.nombre}|"></span><br/>
-				<span th:text="|Precio: (${entrada.tipo.precio}€ *${entrada.cantidad}) = ${precioTotal} €|"></span><br/>
-				<span th:text="|Fecha: ${entrada.entrada.fecha}|"></span><br/>
+				<div class="row">
+					<span th:text="|Entrada: ${tipo.nombre}|"></span><br/>
+				</div>
+				<div class="row">
+					<div class="col-2 mr-0">
+						<span th:text="|Precio: (${tipo.precio}€ *${session.cantidad}) = |"/>
+					</div>
+					<div class="col-1 p-0 m-0">
+						<span th:text="${tipo.precio * session.cantidad}"/>
+					</div>
+					<div class="col-1 p-0 m-0">
+						<span> €</span>
+					</div>
+					
+					
+					<br>
+				</div>
+				<div class="row">
+					<span th:text="|Fecha: ${session.fecha}|"></span><br/>
+				</div>
+				
+				
+				
 			</div>
 			<div class="card">
+				
+				<!--<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>-->
+				<div th:each="tarjeta : ${session.usuario.tarjetas}">
+					<input type="radio" onchange="valorTarjeta(this)" th:id="|tarjeraId-${tarjeta.id}|" name="idTarjeta" th:value="${tarjeta.id}" checked="checked" />
+					<label th:for="|tarjeraId-${tarjeta.id}|" th:text="|${tarjeta.numeroTarjeta} - ${tarjeta.titular} |"/>
+						
+				</div>
+				
+				<div>
+					
+					<button id="idAnadir" class="btn btn-sm btn-danger" >Añadir tarjeta</button>
+											
+					<div id="ventanaModal" class="modal">
+						<div class="modal-content">
+							<button class="cerrar">&times;</button>
+							<h2>Nueva Tarjeta</h2>
+							
+							<form action="/tarjeta/c" method="post">
+			  					<div class="row g-2 justify-content-center align-items-center">
+  									<div class="col-4">
+ 										<label for="idNumero" class="col-form-label">Número de tarjeta</label>
+  									</div>
+  									<div class="col-1"></div>
+  									<div class="col-4">
+										<input type="text" name="numeroTarjeta" id="idNumero" required="required" class="form-control" autofocus="autofocus"/>
+  									</div>
+								</div>
+								<br>
+				
+								<div class="row g-2 justify-content-center align-items-center">
+  									<div class="col-4">
+ 										<label for="idCvv" class="col-form-label">CVV</label>
+  									</div>
+  									<div class="col-1"></div>
+  									<div class="col-4">
+										<input type="text" name="cvv" id="idCvv" required="required" class="form-control" />
+  									</div>
+								</div>
+				
+								<br>
+					
+								<div class="row g-2 justify-content-center align-items-center">
+  									<div class="col-4">
+ 										<label for="idTitular" class="col-form-label">Nombre y apellidos del titular de la tarjeta</label>
+  									</div>
+  									<div class="col-1"></div>
+  									<div class="col-4">
+										<input type="text" name="titular" id="idTitular" required="required" class="form-control" />
+  									</div>
+								</div>
+								<br>
+				
+								<div class="row g-2 justify-content-center align-items-center">
+  									<div class="col-4">
+ 										<label for="idString" class="col-form-label">Fecha caducidad(String temporal)</label>
+  									</div>
+  									<div class="col-1"></div>
+  									<div class="col-4">
+										<input type="text" name="fechaCaducidad" id="idString" required="required" class="form-control" />
+  									</div>
+								</div>
+								<br>
+				
+								
+								<input type="submit" value="Agregar"/>
+								<input type="button" id="botonDismiss" value="Descartar"/>
+							</form>
+						</div>
+					</div>	
+				</div>
+					
+				<br>
 				<form action="/comprar/confirmar" method="post">
 					<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>
-					
-					<label for="id-Tarjeta">Número de tarjeta</label>
-					<input type="text" name="numTarjeta" placeholder="0000 0000 0000 0000"/><br>
-				
+					<input type="hidden" id="idTarjetaEnviar" name="idTarjeta"/>
 					<label for="id-CCV">CCV</label>
-					<input type="password" name="numCcv" placeholder="000"/><br/>
+					<input type="text" name="numCvv" placeholder="000"/><br/>
 					
-					<input type="submit" class="btn btn-primary" value="Confirmar y pagar"/>
+					<input type="submit" class="btn btn-sm btn-primary" value="Confirmar y pagar"/>
 				</form>
-				<form action="/comprar/cancelar" method="post">
-					<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>
-					
-					<input type="submit" class="btn btn-danger" value="Cancelar compra y volver"/>
-				</form>
-				
 			</div>
+				
 		</div>
+		
 		<div class="card-footer">
-			
+			<form action="/comprar/cancelar" method="post">
+					<!--<input type="hidden" name="idEntrada" th:value="${entrada.id}"/>-->				
+				<input type="submit" class="btn btn-danger" value="Cancelar compra y volver"/>
+			</form>	
 		</div>
 	</div>
 </div>
+
+<script>
+	function valorTarjeta(radio){
+		var id = radio.value;
+		document.getElementById("idTarjetaEnviar").value = id;
+		console.log(id);
+	}
+</script>
+<style>
+	
+.cerrar{
+	position: fixed;
+	right: 0;
+	width:20px
+}
+
+.modal {
+  display: none; /* Por defecto, estará oculto */
+  position: fixed; /* Posición fija */
+  z-index: 1; /* Se situará por encima de otros elementos de la página*/
+  padding-top: 200px; /* El contenido estará situado a 200px de la parte superior */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Algura completa */
+  overflow: auto; /* Se activará el scroll si es necesario */
+  background-color: rgba(0,0,0,0.5); /* Color negro con opacidad del 50% */
+}
+
+.contenido-modal {
+  position: relative; /* Relativo con respecto al contenedor -modal- */
+  background-color: white;
+  margin: auto; /* Centrada */
+  padding: 20px;
+  width: 10%;
+  -webkit-animation-name: animarsuperior;
+  -webkit-animation-duration: 0.5s;
+  animation-name: animarsuperior;
+  animation-duration: 0.5s
+}
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+@keyframes animarsuperior {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+<script>
+	var modal = document.getElementById("ventanaModal");
+// Botón que abre el modal
+var boton = document.getElementById("idAnadir");
+// Hace referencia al elemento <span> que tiene la X que cierra la ventana
+var span = document.getElementsByClassName("cerrar")[0];
+
+var botonCerrar=document.getElementById("botonDismiss");
+
+boton.addEventListener("click",function() {
+  modal.style.display = "block";
+});
+// Si el usuario hace clic en la x, la ventana se cierra
+span.addEventListener("click",function() {
+  modal.style.display = "none";
+});
+
+botonCerrar.addEventListener("click",function() {
+  modal.style.display = "none";
+});
+// Si el usuario hace clic fuera de la ventana, se cierra.
+window.addEventListener("click",function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+});
+
+</script>

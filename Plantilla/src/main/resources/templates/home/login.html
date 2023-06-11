@@ -1,49 +1,56 @@
 <div class="container">
-	
-		<div class="card m-auto mt-2 w-50 ">
-  			<div class="card-header text-center">
-    			Inicio de sesión
-  			</div>
+		<div class="card m-auto divLogin w-75 ">
+			<div class="row">
+				<div class="col-4">
+					<img src="/img/logoCuadrado.png" style="width:275px;" alt="Imagen inicio sesión"/>
+				</div>
+				<div class="col-8 inicioSesion p-0 m-0">
+					<div class="card-header text-center">
+    					Inicio de sesión
+  					</div>
   			
-  			<div class="card-body">
-    			<h5 class="card-title text-center">Introduce tus credenciales</h5>
-    			<form action="/login" method="post">
-    				<div class="row g-2 justify-content-center align-items-center">
-  						<div class="col-3">
-    						<label for="id-user2" class="col-form-label">Correo</label>
-  						</div>
-  						<div class="col-1"></div>
-  						<div class="col-4">
-    						<input type="text" id="id-user2" name="email" class="form-control" aria-describedby="passwordHelpInline">
-  						</div>
-					</div>
-					<br>
-    				<div class="row g-2 justify-content-center align-items-center">
-  						<div class="col-3">
-    						<label for="id-pass2" class="col-form-label">Contraseña</label>
-  						</div>
-  						<div class="col-1"></div>
-  						<div class="col-4">
-    						<input type="password" id="id-pass2" name="password" class="form-control" aria-describedby="passwordHelpInline">
-  						</div>
-					</div>
-					<br>
-					<div class="row justify-content-center">
-						<div class="col text-center">
-								<a class="btn btn-danger btn-sm " role="button" href="/user/registration">Registrarse</a>
-						</div>
-						<div class="col text-center">
-							<button class="btn btn-primary btn-sm" onclick="submit()">Entrar</button>
-						</div>
-					</div>
+  					<div class="card-body">
+    					<h5 class="card-title text-center">Introduce tus credenciales</h5>
+    					<form action="/login" method="post">
+    						<div class="row g-2 justify-content-center align-items-center">
+  								<div class="col-3">
+    								<label for="id-user2" class="col-form-label">Correo</label>
+  								</div>
+  								<div class="col-1"></div>
+  								<div class="col-4">
+    								<input type="text" id="id-user2" name="email" class="form-control" aria-describedby="passwordHelpInline">
+  								</div>
+							</div>
+							<br>
+    						<div class="row g-2 justify-content-center align-items-center">
+  								<div class="col-3">
+    								<label for="id-pass2" class="col-form-label">Contraseña</label>
+  								</div>
+  								<div class="col-1"></div>
+  								<div class="col-4">
+    								<input type="password" id="id-pass2" name="password" class="form-control" aria-describedby="passwordHelpInline">
+  								</div>
+							</div>
+							<br>
+							<div class="row justify-content-center">
+								<div class="col text-center">
+									¿No tienes cuenta? Puedes <a href="/user/registration">registrarte aquí</a>
+								</div>
+								<div class="col text-center">
+									<button class="btn btn-transparent botonRegistro btn-sm" onclick="submit()">Entrar</button>
+								</div>
+							</div>
 					
-				</form>
+						</form>
 				
-  			</div>
-  			<div class="card-footer text-muted text-center">
-    			<form action="/">
-					<button class="btn btn-secondary btn-sm">Volver</button>
-				</form>
-  			</div>
+  					</div>
+  					<div class="card-footer text-muted text-center">
+    					<form action="/">
+							<button class="btn btn-transparent botonVolver btn-sm">Volver</button>
+						</form>
+  					</div>
+				</div>
+			</div>
+  			
 		</div>
 </div>

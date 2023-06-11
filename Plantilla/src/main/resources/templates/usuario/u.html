@@ -1,37 +1,67 @@
 <div class="container">
-	<h1>Actualizar usuario</h1>
-
-	<form action="/usuario/u" method="post">
-
-		<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
-		
-		<label for="idNombre">Nombre</label>
-		<input id="idNombre" type="text" name="nombre" th:value="${usuario.nombre}" required="required" autofocus="autofocus"/>
-		<br/>	
+	<div class="card w-75 m-auto mt-2">
+		<div class="card-title">
+			Actualizar usuario
+		</div>
+		<div class="card-body text-center">
+			<h1 class="card-title">Actualizar usuario</h1>
+			<form action="/usuario/u" method="post">
+				<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
+				
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-4">
+						<label for="idNombre" class="col-form-label">Nombre</label>
+					</div>
+					<div class="col-1"></div>
+					<div class="col-4">
+						<input id="idNombre" class="form-control" type="text" name="nombre" th:value="${usuario.name}" required="required" autofocus="autofocus"/>
+					</div>
+				</div>
+				
+				<br/>
+				
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-4">
+						<label for="idApellido1" class="col-form-label">Primer apellido</label>
+					</div>
+					<div class="col-1"></div>
+					<div class="col-4">
+						<input id="idApellido1" class="form-control" type="text" th:value="${usuario.primerApellido}" name="apellido1" required="required"/>
+					</div>
+				</div>
+				<br/>
 			
-		<label for="idApellido1">Primer apellido</label>
-		<input id="idApellido1" type="text" th:value="${usuario.apellido1}" name="apellido1" required="required"/>
-		<br/>
-		
-		<label for="idApellido2">Segundo apellido</label>
-		<input id="idApellido2" type="text" th:value="${usuario?.apellido2}" name="apellido2" required="required"/>
-		<br/>
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-4">
+						<label for="idApellido2" class="col-form-label">Segundo apellido</label>
+					</div>
+					<div class="col-1"></div>
+					<div class="col-4">
+						<input id="idApellido2" class="form-control" type="text" th:value="${usuario?.segundoApellido}" name="apellido2"/>
+					</div>
+				</div>
+				<br/>
 			
-		<label for="idEmail">Email</label>
-		<input id="idEmail" type="text" th:value="${usuario.email}" name="email" required="required"/>
-		<br/>
-		
-		<label for="idTarjeta">Tarjeta acabada en</label>
-		<input id="idTarjeta" th:value="${tarjeta}" type="text" name="tarjeta" required="required"/>
-		<br/>
-		
-		<!--Opción para cambiar de contraseña-->
-
-		<input type="submit" />
-		<br />
-	</form>
-
-	<form action="/">
-		<input type="submit" value="Cancelar" />
-	</form>
+				<div class="row g-2 justify-content-center align-items-center">
+					<div class="col-4">
+						<label for="idEmail" class="col-form-label">Email</label>
+					</div>
+					<div class="col-1"></div>
+					<div class="col-4">
+						<input id="idEmail" class="form-control" type="text" th:value="${usuario.mail}" name="email" required="required"/>
+					</div>
+				</div>
+				<br/>
+			
+				<div class="text-center">
+					<input type="submit" class="btn btn-primary" value="Cambiar datos" />
+				</div>
+			</form>
+		</div>
+		<div class="card-footer">
+			<form action="/perfil">
+				<input type="submit" value="Cancelar" class="btn btn-secondary" />
+			</form>
+		</div>
+	</div>
 </div>

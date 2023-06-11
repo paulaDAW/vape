@@ -1,11 +1,8 @@
 <div class="container">
 	<div class="card w-75 m-auto mt-2">
-		<div class="card-title">
-			Actualizar usuario
-		</div>
 		<div class="card-body text-center">
 			<h1 class="card-title">Actualizar usuario</h1>
-			<form action="/usuario/u" method="post">
+			<form action="/usuario/u" method="post" id="formPerfil" novalidate>
 				<input type="hidden" name="idUsuario" th:value="${usuario.id}" />
 				
 				<div class="row g-2 justify-content-center align-items-center">
@@ -65,3 +62,5 @@
 		</div>
 	</div>
 </div>
+	<!--Validaciones-->
+	<script type="text/javascript" src="/js/validaciones/perfilU.js"></script>

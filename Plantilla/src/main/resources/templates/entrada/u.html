@@ -5,11 +5,12 @@
 		</div>
 		<div class="card-body">
 			<h5 class="card-title text-center">Rellena los campos</h5>
-			<form action="/entrada/u" method="post">
+			<form action="/entrada/u" method="post" id="formEntradaU" novalidate>
 				<input type="hidden" name="idEntrada" th:value="${entrada.id}" />
 				<div class="row g-2 justify-content-center align-items-center">
 					<div class="col-3">
-						<label id="id-numeroMax">Número maximo</label>
+						<label for="id-numeroMax">Número maximo</label>
+
 					</div>
 					<div class="col-1"></div>
 					<div class="col-4">
@@ -19,7 +20,7 @@
 				</div>
 				<div class="row g-2 justify-content-center align-items-center">
 					<div class="col-3">
-						<label id="id-numeroVen">Número entradas vendidas</label>
+						<label for="id-numeroVen">Número entradas vendidas</label>
 					</div>
 					<div class="col-1"></div>
 					<div class="col-4">
@@ -41,7 +42,7 @@
 				</div>
 				<br />
 				<div class="text-center">
-					<button class="btn btn-primary btn-sm" onclick="submit()">Actualizar Entrada</button>
+					<button type="submit" class="btn btn-primary btn-sm">Actualizar Entrada</button>
 				</div>
 			</form>
 		</div>
@@ -52,3 +53,5 @@
 		</div>
 	</div>
 </div>
+	<!--Validaciones-->
+	<script type="text/javascript" src="/js/validaciones/entradaU.js"></script>

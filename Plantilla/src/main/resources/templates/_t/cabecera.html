@@ -9,7 +9,6 @@
 			</div>
 			
 			<div class="col"></div>
-			
 
 			<div th:if="${session.usuario==null || session.usuario?.enabled == false}" class="col-auto m-2">
 				<a class="btn btn-info btn-sm" href="/login" role="button"> Iniciar sesión </a>
@@ -18,7 +17,6 @@
 			<div th:if="${session.usuario==null || session.usuario?.enabled == false}" class="col-auto m-2">
 				<a class="btn btn-primary btn-sm" href="/user/registration" role="button"> Registrarse </a>
 			</div>
-	
 
 			<div class="dropdown col-auto m-2" th:if="${session?.usuario != null and session.usuario.rol != null and session.usuario?.rol.nombre eq 'admin'}">
   				<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">

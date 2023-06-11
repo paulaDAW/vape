@@ -105,10 +105,10 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<!--authentication-manager>
+	authentication-manager>
     <authentication-provider ref="authProvider" />
 </<authentication-manager>
--->
+
 	<build>
 		<plugins>
 			<plugin>

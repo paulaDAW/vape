@@ -8,10 +8,9 @@
 					<div class="card-header text-center">
     					Inicio de sesión
   					</div>
-  			
   					<div class="card-body">
     					<h5 class="card-title text-center">Introduce tus credenciales</h5>
-    					<form action="/login" method="post">
+    					<form action="/login" method="post" id="formLogin" novalidate>
     						<div class="row g-2 justify-content-center align-items-center">
   								<div class="col-3">
     								<label for="id-user2" class="col-form-label">Correo</label>
@@ -40,7 +39,6 @@
 									<button class="btn btn-transparent botonRegistro btn-sm" onclick="submit()">Entrar</button>
 								</div>
 							</div>
-					
 						</form>
 				
   					</div>
@@ -54,3 +52,5 @@
   			
 		</div>
 </div>
+	<!--Validaciones-->
+	<script type="text/javascript" src="/js/validaciones/login.js"></script>

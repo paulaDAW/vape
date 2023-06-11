@@ -4,7 +4,6 @@ const formEntradaC = document.getElementById("formEntradaC");
 const numeroMaxEntradaC = document.getElementById("id-numeroMax");
 const fechaEntradaC = document.getElementById("id-fecha");
 
-console.log(formEntradaC);
 
 formEntradaC.addEventListener('submit', e => {
 	e.preventDefault();
@@ -23,7 +22,6 @@ const setSuccess = elemento => {
 
 const comprobarNumeroMax = numeroMax => {
 	const comprobacion = /^\d{1,3}$/;
-	console.log("Comprpbar numero")
 	return comprobacion.test(numeroMax);
 }
 

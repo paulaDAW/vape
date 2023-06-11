@@ -1,44 +1,98 @@
 <!--Entradas-->
-<div class="container mt-2">
+<div class="container mt-2" id="contenido">
 	<div class="card">
 		<div class="card-header">
 			<div class="card-title text-center">
-				Entradas
+				Selecciona tus entradas
 			</div>
 		</div>
-		<div class="card-body text-center align-items-center">
+		<div class="card-body formularioCompra text-center align-items-center">
 			<form action="/comprar/resumen">
 				<!--Crear vista confirmacion-->
-				<label>Numero de entradas</label>
-				<input type="number" name="cantidad" />
+
+				<div class="numeroEntradas" >
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-4">
+							<label for="iUno"><b>Número de entradas</b></label>
+						</div>
+						<div class="col-2">
+							<input id="iUno" step="1" type="number" name="cantidad"
+						 required="required" autofocus="autofocus" class="form-control" />
+						</div>
+						<div class="col-1"></div>
+						<div class="col-2">
+							<input type="button" id="confirUno" class="btn btn-transparent botonRegistro" value="Confirmar"/>
+						</div>
+						<div class="col-2">
+							<input type="button" id="cancelarUno" class="btn btn-transparent botonCancelar" value="Cancelar"/>
+						</div>
+					</div>
+
+				</div>
+				
 				<br />
 
-				<label>Tipo de entrada</label>
-				<select name="idTipo">
-					<th:block th:each=" tipo : ${tipos}">
-						<option th:value="${tipo.id}" th:text="|${tipo.nombre} (${tipo.precio} €)|"
-							class="form-control" />
-					</th:block>
-				</select>
+				<div class="entradaExpo dos" id="iDos">
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-4">
+							<label ><b>Tipo de entrada</b></label>
+						</div>
+						<div class="col">
+							<select name="idTipo" id="iSelect" class="form-select">
+								<option value="null">Elige una entrada</option>
+								<th:block th:each=" tipo : ${tipos}">
+									<option th:value="${tipo.id}" th:text="|${tipo.nombre} (${tipo.precio} €)|"
+										class="form-control" />
+								</th:block>
+							</select>
+						</div>
+						<div class="col-2">
+							<input type="button" id="confirDos" class="btn btn-transparent botonRegistro" value="Confirmar"/>
+						</div>
+						<div class="col-2">
+							<input type="button" id="cancelarDos" class="btn btn-transparent botonVolver" value="Cancelar"/>
+						</div>
+					</div>
+				</div>
 				<br />
 
 				<!--Cada entrada debe de tener N fechas, y comprobar sobre la selecionada-->
 				<!--Mostrar solo las fechas que no tengan todas vendidas-->
-				<label>Fecha</label>
-				<div id="datepicker" class="text-center"></div>
-				<input type="hidden" name="fecha" id="fechaC" class="form-control" />
+				<div class="seleccionFecha align-items-center tres p-auto" id="iTres">
+					<div class="row">
+						<label><b>Fecha</b></label>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-3"></div>
+						<div class="col-6">
+							<div id="datepicker" class="text-center" onchange="comprobarValores()"></div>
+							<input type="hidden" name="fecha" id="fechaC" class="form-control" />
+						</div>
+						<div class="col-1"></div>
+					</div>
+					<br>
+					<div class="row justify-content-center">
+						<div class="col-2">
+							<input type="button" id="cancelarTres" class="btn btn-transparent botonVolver" value="Cancelar"/>
+						</div>
+					</div>
+				</div>
+				
 				<br />
 
 
-				<div class="text-center">
-					<button class="btn btn-primary btn-sm" onclick="submit()">Comprar</button>
+				<div class="botonEnvio text-center" id="idBotonEnvio">
+					<button class="btn btn-transparent botonRegistro" onclick="submit()">Comprar</button>
 				</div>
 
 			</form>
 		</div>
 		<div class="card-footer text-muted text-center">
 			<form action="/">
-				<button class="btn btn-secondary btn-sm">Volver</button>
+				<button class="btn btn-transparent botonVolver btn-sm">Volver</button>
 			</form>
 		</div>
 
@@ -46,3 +100,4 @@
 </div>
 
 <script src="/js/fecha.js"></script>
+<script src="/js/compraEntradas.js"></script>

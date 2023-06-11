@@ -1,5 +1,6 @@
 package org.tfg.spring.Vape.controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tfg.spring.Vape.entities.EntradaComprada;
+import org.tfg.spring.Vape.entities.Tarjeta;
 import org.tfg.spring.Vape.entities.User;
 import org.tfg.spring.Vape.exception.DangerException;
 import org.tfg.spring.Vape.helpers.H;
@@ -27,7 +29,10 @@ public class PerfilController {
 	@Autowired
 	private UserService usuarioService;
 
-	
+	/*
+	@Autowired
+	private TarjetaService tarjetaService;
+	*/
 
 	@GetMapping("/perfil")
 	public String r(ModelMap m, HttpSession s) throws DangerException {
@@ -39,9 +44,23 @@ public class PerfilController {
 		}
 		
 		User usuario = (User)(s.getAttribute("usuario"));
+		s.setAttribute("usuario", usuarioService.getUsuarioById(usuario.getId()));
+		usuario = (User)(s.getAttribute("usuario"));
+		Collection<Tarjeta> tarjetasUsuario = usuario.getTarjetas();
+		/*
+		Tarjeta[] listaTarjetas  = null;
+		for(Tarjeta tarCod : tarjetasUsuario) {
+			String[] numerosTarjeta = tarCod.getNumeroTarjeta().split(" ");
+			listaTarjetas[listaTarjetas.length -1]="**** **** **** " +numerosTarjeta[numerosTarjeta.length -1];)
+		}
+		*/
+		/*
+
 		String[] numerosTarjeta = usuario.getTarjeta().split(" ");
 		String tarjeta = "**** **** **** "+ numerosTarjeta[numerosTarjeta.length -1];
 		m.put("tarjeta", tarjeta);
+		*/
+		m.put("tarjetas", tarjetasUsuario);
 		m.put("usuario", usuario );
 		m.put("view", "perfil/r");
 		return "_t/frame";
@@ -115,7 +134,7 @@ public class PerfilController {
 		User nuevoUsuario = usuarioService.updatePass(id, nuevaPass);
 		s.setAttribute("usuario", nuevoUsuario);
 		m.put("usuario", nuevoUsuario);
-		m.put("view", "/perfil/r");
+		m.put("view", "/perfil/cambioConfirmado");
 		return "_t/frame";
 	}
 }

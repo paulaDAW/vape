@@ -1,0 +1,26 @@
+div.botonEnvio{
+	display:none;
+}
+
+
+div.dos{
+	width: 100%;
+	display: block;
+	
+	opacity: 0;
+	top:100px;
+}
+
+div.tres{
+	width: 100%;
+	display: block;
+	
+	opacity: 0;
+	top:200px;
+}
+
+div.formularioCompra{
+	display:block;
+	
+	/*height: 100vh;*/
+}

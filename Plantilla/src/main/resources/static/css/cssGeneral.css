@@ -1,0 +1,60 @@
+body{
+	background: url(../img/fondo.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.contenedorHome{
+	background: transparent;
+}
+
+.cardTarifas, .botonEntradas, .footerEntradas, .textoHome, .tituloHome, .tituloPrincipal{
+	color:#004d80;
+}
+
+.botonEntradas, .botonRegistro{
+	border: 1px solid #005c99;
+}
+
+.botonEntradas:hover, .botonRegistro:hover{
+	background-color: #008ae6;
+}
+
+.botonVolver{
+	border: 1px solid #444422;
+}
+
+.botonCancelar{
+	border: 1px solid #F00;
+}
+
+.botonCancelar:hover{
+	background-color: #ff1a1a;
+}
+
+.botonVolver:hover{
+	background-color:  #888844;
+}
+
+.tituloHome{
+	font-family: Bradley Hand, cursive;
+}
+
+.textoHome{
+	font-size: 15px;
+	font-family: Bradley Hand, cursive;
+}
+
+.tituloPrincipal{
+	font-family: URW Chancery L, cursive;
+}
+
+.inicioSesion{
+	padding-left: 0;
+	border-left: 1px solid #ccc;
+}
+
+.divLogin{
+	margin-top: 135px !important;
+}

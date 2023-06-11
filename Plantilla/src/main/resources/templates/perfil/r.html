@@ -4,8 +4,7 @@
 			  <span>Datos personales</span>
  	 	</div>
   		<div class="card-body">
-			<form action="/usuario/u">
-				<input type="hidden" name="id" th:value="${usuario.id}"/>
+
 				<h5 class="card-title" th:text="${usuario.name}|"></h5>
 				<p class="card-text">
 					<label th:text="|Nombre: ${usuario.name}|"></label><br>
@@ -13,11 +12,67 @@
 					<label th:text="|Segundo apellido: ${usuario.segundoApellido}|"></label><br>
 					<label th:text="|Email: ${usuario.mail}|"></label><br>
 				</p>
-			  	<input type="submit" value="Cambiar datos" class="btn btn-sm btn-primary"/>
-			</form>
+
+				<div th:if="${usuario.tarjetas.size() == 0}">
+					<h3>Aún no has añadido una tarjeta</h3>
+				</div>
+				
+				<div th:if="${usuario.tarjetas.size() > 0}">
+					<h4>Tarjetas guardadas</h4>
+					<th:block th:each="tarjeta :${usuario.tarjetas}">
+						<div class="card">
+							<div class="card-body">
+								<p>
+									<label th:text="|Numero de tarjeta: ${tarjeta.numeroTarjeta}|"></label>
+									<label th:text="|Fecha de caducidad: ${tarjeta.fechaCaducidad}|"></label>
+									<label th:text="|Titular de la tarjeta: ${tarjeta.titular}|"></label>
+								</p>
+								
+								<div class="row text-center">
+									<div class="col">
+										<form action="/tarjeta/u">
+											<input type="hidden" name="id" th:value="${tarjeta.id}"/>
+											<input type="submit" class="btn btn-sm btn-warning" value="Actualizar tarjeta"/>	
+										</form>
+									</div>
+									
+									<div class="col">
+										
+											<!-- onclick="pedirConfirmacion()"-->
+											<button id="idBorrar"class="btn btn-sm btn-danger" >Borrar tarjeta</button>
+											
+											<div id="ventanaModal" class="modal">
+												<div class="modal-content">
+													<button class="cerrar">&times;</button>
+													<h2 th:text="|¿Seguro que deseas borrar la tarjeta: ${tarjeta.numeroTarjeta} ?|"></h2>
+													<form action="/tarjeta/d" method="post">
+														<input type="hidden" name="id" th:value="${tarjeta.id}"/>
+														<input type="submit" value="Sí"/>
+														<input type="button" id="botonDismiss" value="No"/>
+													</form>
+												</div>
+											</div>	
+										
+									</div>
+									
+								</div>
+								
+								
+							</div>
+						</div>
+					</th:block>
+				</div>
+				
+				<a class="btn btn-sm btn-warning" role="button" href="/tarjeta/create">Añadir tarjeta</a>
+					<br>
+				<form action="/usuario/u">
+					<input type="hidden" name="id" th:value="${usuario.id}"/>
+			  		<input type="submit" value="Cambiar datos" class="btn btn-sm btn-primary"/>
+				</form>
+
 			<form action="/perfil/cambiarPassword">
 				<input type="hidden" name="idU" th:value="${usuario.id}"/>
-				<input type="submit" class="btn btn-danger" value="Cambiar pass"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Cambiar pass"/>
 			</form>
   		</div>
   		<div class="card-footer text-muted">
@@ -27,3 +82,102 @@
   		</div>
 	</div>
 </div>
+
+<style>
+	
+.cerrar{
+	position: fixed;
+	right: 0;
+	width:20px
+}
+
+.modal {
+  display: none; /* Por defecto, estará oculto */
+  position: fixed; /* Posición fija */
+  z-index: 1; /* Se situará por encima de otros elementos de la página*/
+  padding-top: 200px; /* El contenido estará situado a 200px de la parte superior */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Algura completa */
+  overflow: auto; /* Se activará el scroll si es necesario */
+  background-color: rgba(0,0,0,0.5); /* Color negro con opacidad del 50% */
+}
+
+.contenido-modal {
+  position: relative; /* Relativo con respecto al contenedor -modal- */
+  background-color: white;
+  margin: auto; /* Centrada */
+  padding: 20px;
+  width: 10%;
+  -webkit-animation-name: animarsuperior;
+  -webkit-animation-duration: 0.5s;
+  animation-name: animarsuperior;
+  animation-duration: 0.5s
+}
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+@keyframes animarsuperior {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+<script>
+	var modal = document.getElementById("ventanaModal");
+// Botón que abre el modal
+var boton = document.getElementById("idBorrar");
+// Hace referencia al elemento <span> que tiene la X que cierra la ventana
+var span = document.getElementsByClassName("cerrar")[0];
+
+var botonCerrar=document.getElementById("botonDismiss");
+
+boton.addEventListener("click",function() {
+  modal.style.display = "block";
+});
+// Si el usuario hace clic en la x, la ventana se cierra
+span.addEventListener("click",function() {
+  modal.style.display = "none";
+});
+
+botonCerrar.addEventListener("click",function() {
+  modal.style.display = "none";
+});
+// Si el usuario hace clic fuera de la ventana, se cierra.
+window.addEventListener("click",function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+});
+/*
+	function pedirConfirmacion(tarjeta){
+		//Ventana emergente en modal
+		var borrar = false;
+		if(confirm("¿Deseas borrar la tarjeta "+tarjeta.numeroTarjeta+" ?")){
+			borrar = true;
+		}
+		if(!borrar){
+			document.getElementById("idBorrar") = function(event){
+				event.preventDefault();
+			};
+				
+			}
+		}
+		return borrar;
+	}*/
+</script>

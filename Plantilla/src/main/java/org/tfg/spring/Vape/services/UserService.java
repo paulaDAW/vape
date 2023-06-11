@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tfg.spring.Vape.dto.UserDto;
@@ -47,7 +48,7 @@ public class UserService implements IUserService {
         user.setSegundoApellido(userDto.getApellido2());
         user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
         user.setMail(userDto.getEmail());
-        user.setTarjeta(userDto.getTarjeta());
+
         
         Rol rol = rolRepository.findByNombre("Cliente");
 		user.setRol(rol);
@@ -129,7 +130,7 @@ public class UserService implements IUserService {
         user.setSegundoApellido(usuario.getApellido2());
         user.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
         user.setMail(usuario.getEmail());
-        user.setTarjeta(usuario.getTarjeta());
+
 		
 		/*
 		usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
@@ -165,7 +166,7 @@ public class UserService implements IUserService {
 			String nombre,
 			String apellido1,
 			String apellido2,
-			String tarjeta,
+
 			String email) throws Exception {
 		User usuario = userRepository.findById(idUsuario).get();
 		
@@ -173,7 +174,7 @@ public class UserService implements IUserService {
 		usuario.setPrimerApellido(apellido1);
 		usuario.setSegundoApellido(apellido2);
 		usuario.setMail(email);
-		usuario.setTarjeta(tarjeta); //Encriptar??
+
 		//Usuario usuario = new Usuario(usuarioDTO);
 			User userUpdated = new User();
 		try {
@@ -205,7 +206,7 @@ public class UserService implements IUserService {
 		return usuario;
 	}
 	
-	
+	@Async
 	public void confirmacionCompra(String emailTo) throws Exception {
 		MimeMessage mensaje = javaMailSender.createMimeMessage();
 		try {
@@ -215,6 +216,21 @@ public class UserService implements IUserService {
 			helper.setTo(emailTo);
 			helper.setSubject("Confirmación de compra de entrada/s");
 			helper.setText("Su compra ha sido realizada con éxito.");
+			javaMailSender.send(mensaje);
+		} catch (Exception e) {
+			throw new Exception("Ha ocurrido un error");
+		}
+	}
+	
+	public void emailExponer(String nombre, String apellido1, String apellido2, String dni, String emailTo) throws Exception {
+		MimeMessage mensaje = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensaje,true);
+			
+			helper.setFrom(email);
+			helper.setTo(emailTo);
+			helper.setSubject("Tus datos nos han llegado");
+			helper.setText("Hola " + nombre + " " + apellido1 + ", acabamos de recibir tu datos, ¡pronto entraremos en contacto contigo!");
 			javaMailSender.send(mensaje);
 		} catch (Exception e) {
 			throw new Exception("Ha ocurrido un error");

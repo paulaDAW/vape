@@ -1,0 +1,67 @@
+<div class="container">
+	<div class="card w-75 m-auto mt-2">
+		<div class="card-header text-center">
+    		Registro de tarjeta de crédito
+  		</div>
+  		
+  		<div class="card-body">
+			  <form action="/tarjeta/c" method="post">
+			  	<div class="row g-2 justify-content-center align-items-center">
+  					<div class="col-4">
+ 						<label for="idNumero" class="col-form-label">Número de tarjeta</label>
+  					</div>
+  					<div class="col-1"></div>
+  					<div class="col-4">
+						<input type="text" name="numeroTarjeta" id="idNumero" required="required" class="form-control" autofocus="autofocus"/>
+  					</div>
+				</div>
+				<br>
+				
+				<div class="row g-2 justify-content-center align-items-center">
+  					<div class="col-4">
+ 						<label for="idCvv" class="col-form-label">CVV</label>
+  					</div>
+  					<div class="col-1"></div>
+  					<div class="col-4">
+						<input type="text" name="cvv" id="idCvv" required="required" class="form-control" />
+  					</div>
+				</div>
+				
+				<br>
+				
+				<div class="row g-2 justify-content-center align-items-center">
+  					<div class="col-4">
+ 						<label for="idTitular" class="col-form-label">Nombre y apellidos del titular de la tarjeta</label>
+  					</div>
+  					<div class="col-1"></div>
+  					<div class="col-4">
+						<input type="text" name="titular" id="idTitular" required="required" class="form-control" />
+  					</div>
+				</div>
+				<br>
+				
+				<div class="row g-2 justify-content-center align-items-center">
+  					<div class="col-4">
+ 						<label for="idString" class="col-form-label">Fecha caducidad(String temporal)</label>
+  					</div>
+  					<div class="col-1"></div>
+  					<div class="col-4">
+						<input type="text" name="fechaCaducidad" id="idString" required="required" class="form-control" />
+  					</div>
+				</div>
+				<br>
+				
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary btn-sm">Registrar</button>
+				</div>
+				
+			</form>
+		</div>
+		
+		<div class="card-footer">
+			<form action="/perfil">
+				<button class="btn btn-secondary btn-sm">Volver</button>
+			</form>
+		</div>
+	</div>
+</div>

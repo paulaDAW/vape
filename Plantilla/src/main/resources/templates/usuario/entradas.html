@@ -3,6 +3,7 @@
 		<div class="card-title text-center bg-warning">
 			Mis entradas
 		</div>
+
 		<div class="card-body m-auto text-center w-50">
 			<div class="text-center" th:if="${entradas.size() == 0}">
 				<h5>Esto está muy vacío...</h5><!--
@@ -11,6 +12,7 @@
 				<a href="/comprar/r" class="btn m-2 btn-primary">
 					<img src="/img/ticket-solid.svg" alt="Ticket" style="width:40px;">&nbsp&nbspComprar entradas
 				</a>-->
+
 			</div>
 			<div th:each=" entradaComprada : ${entradas}" class="card border-6 w-100 p-4">
 				<ul class="nav justify-content-center border-bottom">

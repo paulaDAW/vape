@@ -19,9 +19,11 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+
 
 @AllArgsConstructor
 @Builder
@@ -43,7 +45,9 @@ public class User {
     
     private String mail;
     
-    private String tarjeta;
+
+    //private String tarjeta;
+
 
     @Column(length = 60)
     private String password;
@@ -56,6 +60,13 @@ public class User {
 	
 	@OneToMany(mappedBy = "usuario",fetch=FetchType.EAGER)
 	private Collection<EntradaComprada> entradasCompradas;
+
+    
+	@OneToMany(mappedBy = "usuario",fetch=FetchType.EAGER)
+	private Collection<Tarjeta> tarjetas;
+	
+	
+
     /*
     private boolean isUsing2FA;
 
@@ -69,7 +80,7 @@ public class User {
 		
 	}
 	*/
-	 public User() {
+		public User() {
 	        super();
 	        this.enabled=false;
 	    }
@@ -79,7 +90,9 @@ public class User {
 		this.segundoApellido = userDto.getApellido2();
 		this.password = userDto.getPassword();
 		this.mail = userDto.getEmail();
-		this.tarjeta = userDto.getTarjeta();
+
+		//this.tarjeta = userDto.getTarjeta();
+
 		this.enabled = false;
 		this.rol = null; 
 	}

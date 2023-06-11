@@ -40,12 +40,13 @@ public class EntradaCompradaService {
 		entradaComprada.setUsuario(usuario);
 		
 		entrada.setNumeroVendido((entrada.getNumeroVendido()+cantidad));
+		EntradaComprada entradaDevolver = null;
 		try {
-			entradaCompradaRepository.saveAndFlush(entradaComprada);
+			entradaDevolver = entradaCompradaRepository.saveAndFlush(entradaComprada);
 		} catch (Exception e) {
 			throw new Exception("Error al comprar la entrada");
 		}
-		return entradaComprada;
+		return entradaDevolver;
 	}
 
 	public EntradaComprada getEntradaCompradaById(Long id) {

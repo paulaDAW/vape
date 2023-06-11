@@ -150,9 +150,13 @@ public class UsuarioController {
 			PRG.error(e.getMessage(),"/login");
 		}
 		User usuario = usuarioService.getUsuarioById(idUsuario);
+
+		/*
+
 		String[] numerosTarjeta = usuario.getTarjeta().split(" ");
 		String tarjeta = "**** **** **** "+ numerosTarjeta[numerosTarjeta.length -1];
 		m.put("tarjeta", tarjeta);
+		*/
 		m.put("usuario", usuario);
 		m.put("view", "usuario/u");
 
@@ -177,7 +181,6 @@ public class UsuarioController {
 			@RequestParam("nombre") String nombre,
 			@RequestParam("apellido1") String apellido1,
 			@RequestParam("email") String email,
-			@RequestParam("tarjeta") String tarjeta,
 			HttpSession s
 			) throws DangerException {
 		String retorno = "redirect:/";
@@ -194,7 +197,8 @@ public class UsuarioController {
 			PRG.error(e.getMessage(),"/login");
 		}
 		try {
-			User usuarioActualizdo = usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, tarjeta, email);
+			User usuarioActualizdo = usuarioService.updateUsuario(idUsuario, nombre, apellido1, apellido2, email);
+
 			s.setAttribute("usuario", usuarioActualizdo);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/");

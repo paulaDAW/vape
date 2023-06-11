@@ -56,6 +56,9 @@ public class EntradaController {
 		}
 		int numeroVen = 0;
 		try {
+			if(numeroMax == 0) {
+				throw new Exception("El número de entradas no puede ser 0");
+			}
 			entradaService.saveEntrada(numeroMax,numeroVen,fecha);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/entrada/r");
@@ -107,7 +110,9 @@ public class EntradaController {
 		}
 		
 		try {
-			
+			if (numeroMax < numeroVen) {
+				throw new Exception("El número de entradas vendidas no puede ser mayor que el número de entradas disponibles");
+			} 
 			entradaService.updateEntrada(idEntrada, numeroMax, numeroVen, fecha);
 		} catch (Exception e) {
 			PRG.error(e.getMessage(), "/entrada/r");
